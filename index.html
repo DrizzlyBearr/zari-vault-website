@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,105 +7,110 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+/* ===== TOKENS ===== */
 :root {
-  --blue-900: #0f2460;
-  --blue-800: #1e3a8a;
-  --blue-700: #1d4ed8;
-  --blue-600: #2563eb;
-  --blue-500: #3b82f6;
-  --blue-100: #dbeafe;
-  --blue-50:  #eff6ff;
-  --orange-700: #c2410c;
-  --orange-600: #ea580c;
-  --orange-500: #f97316;
-  --orange-100: #ffedd5;
-  --orange-50:  #fff7ed;
-  --gray-950: #0a0f1e;
-  --gray-900: #111827;
-  --gray-700: #374151;
-  --gray-600: #4b5563;
-  --gray-500: #6b7280;
-  --gray-400: #9ca3af;
-  --gray-200: #e5e7eb;
-  --gray-100: #f3f4f6;
-  --gray-50:  #f9fafb;
-  --white:    #ffffff;
-  --bg-alt:   #f0f4ff;
-  --border:   var(--gray-200);
-  --text:     var(--gray-900);
-  --text-2:   var(--gray-600);
-  --text-3:   var(--gray-400);
-  --shadow:   0 2px 12px rgba(30,58,138,0.08),0 1px 3px rgba(0,0,0,0.06);
-  --shadow-h: 0 8px 32px rgba(30,58,138,0.16),0 2px 8px rgba(0,0,0,0.08);
-  --ff: 'Plus Jakarta Sans',sans-serif;
-  --serif: 'Instrument Serif',serif;
-  --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
+  --blue-900:#0f2460;--blue-800:#1e3a8a;--blue-700:#1d4ed8;--blue-600:#2563eb;
+  --blue-500:#3b82f6;--blue-100:#dbeafe;--blue-50:#eff6ff;
+  --orange-700:#c2410c;--orange-600:#ea580c;--orange-500:#f97316;
+  --orange-100:#ffedd5;--orange-50:#fff7ed;
+  --gray-950:#0a0f1e;--gray-900:#111827;--gray-700:#374151;--gray-600:#4b5563;
+  --gray-500:#6b7280;--gray-400:#9ca3af;--gray-200:#e5e7eb;--gray-50:#f9fafb;
+  --white:#ffffff;
+  --bg:#ffffff;--bg-alt:#f0f4ff;--bg-dark:#1e3a8a;
+  --text:#111827;--text-2:#4b5563;--text-3:#9ca3af;
+  --border:#e5e7eb;
+  --card-bg:#ffffff;
+  --shadow:0 2px 12px rgba(30,58,138,0.08),0 1px 3px rgba(0,0,0,0.06);
+  --shadow-h:0 8px 32px rgba(30,58,138,0.16),0 2px 8px rgba(0,0,0,0.08);
+  --ff:'Plus Jakarta Sans',sans-serif;--serif:'Instrument Serif',serif;
+  --r-md:12px;--r-lg:20px;--r-xl:28px;
+  --progress-w:0%;
+}
+[data-theme="dark"] {
+  --bg:#0d1117;--bg-alt:#161b22;--bg-dark:#0d1117;
+  --text:#f0f6fc;--text-2:#8b949e;--text-3:#484f58;
+  --border:#30363d;--card-bg:#161b22;
+  --blue-50:#0d1f40;--blue-100:#1a3a6b;
+  --shadow:0 2px 12px rgba(0,0,0,0.3),0 1px 3px rgba(0,0,0,0.2);
+  --shadow-h:0 8px 32px rgba(0,0,0,0.4),0 2px 8px rgba(0,0,0,0.3);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:var(--ff);background:#fff;color:var(--text);line-height:1.7;overflow-x:hidden;}
+body{font-family:var(--ff);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s;}
 a{color:inherit;text-decoration:none;}
 button{cursor:pointer;font-family:inherit;}
 h1,h2,h3,h4{font-family:var(--ff);}
 
-/* === NAV === */
-#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+/* ===== PROGRESS BAR ===== */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:var(--progress-w);background:linear-gradient(90deg,var(--blue-600),var(--orange-500));z-index:9999;transition:width .1s linear;pointer-events:none;}
+
+/* ===== NAV ===== */
+#navbar{position:fixed;top:3px;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s;}
+[data-theme="dark"] #navbar{background:rgba(13,17,23,0.93);}
 #navbar.scrolled{box-shadow:0 4px 24px rgba(30,58,138,0.1);}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:68px;display:flex;align-items:center;justify-content:space-between;}
 .nav-brand{display:flex;align-items:center;gap:.6rem;}
 .nav-brand-icon{width:38px;height:38px;background:var(--blue-800);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .nav-brand-name{font-size:1.15rem;font-weight:800;color:var(--blue-800);letter-spacing:-.02em;}
+[data-theme="dark"] .nav-brand-name{color:var(--blue-500);}
 .nav-links{display:flex;align-items:center;gap:.25rem;list-style:none;}
 .nav-links a{display:block;padding:.45rem .9rem;font-size:.9rem;font-weight:500;color:var(--text-2);border-radius:6px;transition:color .2s,background .2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--blue-800);background:var(--blue-50);}
+[data-theme="dark"] .nav-links a:hover,[data-theme="dark"] .nav-links a.active{color:var(--blue-500);}
 .nav-links a.active{font-weight:600;}
-.nav-cta{background:var(--blue-800)!important;color:#fff!important;padding:.55rem 1.25rem!important;border-radius:6px!important;font-weight:700!important;}
+.nav-cta{background:var(--blue-800)!important;color:#fff!important;padding:.55rem 1.25rem!important;border-radius:6px!important;font-weight:700!important;transition:background .2s,transform .15s!important;}
 .nav-cta:hover{background:var(--blue-700)!important;transform:translateY(-1px);}
+
+/* Dark mode toggle */
+.theme-toggle{width:36px;height:36px;background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background .2s,border-color .2s,transform .15s;cursor:pointer;flex-shrink:0;}
+.theme-toggle:hover{transform:translateY(-1px);border-color:var(--blue-300,#93c5fd);}
+.nav-right{display:flex;align-items:center;gap:.75rem;}
+
 .nav-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;border-radius:6px;}
 .nav-ham span{display:block;width:24px;height:2px;background:var(--blue-800);border-radius:2px;transition:transform .3s,opacity .3s;}
+[data-theme="dark"] .nav-ham span{background:var(--blue-400);}
 .nav-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .nav-ham.open span:nth-child(2){opacity:0;}
 .nav-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-.nav-mob{display:none;flex-direction:column;background:#fff;border-top:1px solid var(--border);padding:1rem 2rem 1.5rem;gap:.25rem;}
+.nav-mob{display:none;flex-direction:column;background:var(--bg);border-top:1px solid var(--border);padding:1rem 2rem 1.5rem;gap:.25rem;}
 .nav-mob a{display:block;padding:.65rem .75rem;font-size:1rem;font-weight:500;color:var(--text-2);border-radius:6px;transition:color .2s,background .2s;}
 .nav-mob a:hover{color:var(--blue-800);background:var(--blue-50);}
 .nav-mob.open{display:flex;}
 
-/* === SHARED === */
+/* ===== SHARED ===== */
 .wrap{max-width:1200px;margin:0 auto;padding:7rem 2rem;}
 .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-600);background:var(--blue-50);border:1px solid var(--blue-100);padding:.3rem .85rem;border-radius:100px;margin-bottom:1.25rem;}
 .eyebrow.ora{color:var(--orange-700);background:var(--orange-50);border-color:var(--orange-100);}
+[data-theme="dark"] .eyebrow.ora{color:var(--orange-500);}
 .sh{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--blue-900);margin-bottom:1rem;}
+[data-theme="dark"] .sh{color:var(--text);}
 .sh em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--blue-600);}
 .sb{font-size:1.05rem;color:var(--text-2);max-width:52ch;line-height:1.75;}
 .btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue-800);color:#fff;font-weight:700;font-size:.95rem;padding:.85rem 2rem;border-radius:var(--r-md);border:none;transition:background .2s,transform .15s,box-shadow .2s;}
 .btn-p:hover{background:var(--blue-700);transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,58,138,.25);}
-.btn-s{display:inline-flex;align-items:center;gap:.5rem;background:#fff;color:var(--blue-800);font-weight:600;font-size:.95rem;padding:.85rem 2rem;border-radius:var(--r-md);border:2px solid var(--blue-100);transition:border-color .2s,background .2s,transform .15s;}
+.btn-s{display:inline-flex;align-items:center;gap:.5rem;background:var(--card-bg);color:var(--blue-800);font-weight:600;font-size:.95rem;padding:.85rem 2rem;border-radius:var(--r-md);border:2px solid var(--blue-100);transition:border-color .2s,background .2s,transform .15s;}
 .btn-s:hover{border-color:#93c5fd;background:var(--blue-50);transform:translateY(-2px);}
 
-/* === ANIMATIONS === */
+/* ===== ANIMATIONS ===== */
 .rev,.rev-l,.rev-r{opacity:0;transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);}
-.rev{transform:translateY(28px);}
-.rev-l{transform:translateX(-28px);}
-.rev-r{transform:translateX(28px);}
+.rev{transform:translateY(28px);}.rev-l{transform:translateX(-28px);}.rev-r{transform:translateX(28px);}
 .rev.vis,.rev-l.vis,.rev-r.vis{opacity:1;transform:none;}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
 
-/* === HERO === */
-#home{background:#fff;padding-top:68px;overflow:hidden;}
+/* ===== HERO ===== */
+#home{background:var(--bg);padding-top:71px;overflow:hidden;}
 .hero-wrap{max-width:1200px;margin:0 auto;padding:6rem 2rem 0;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue-50);border:1px solid var(--blue-100);color:var(--blue-700);font-size:.78rem;font-weight:600;letter-spacing:.05em;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.5rem;}
 .h1-dot{width:7px;height:7px;background:var(--orange-500);border-radius:50%;animation:blink 2s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 .hero-h1{font-size:clamp(2.6rem,5vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;color:var(--blue-900);margin-bottom:1.25rem;}
+[data-theme="dark"] .hero-h1{color:var(--text);}
 .hero-h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--blue-600);}
 .hero-sub{font-size:1.1rem;color:var(--text-2);max-width:46ch;line-height:1.8;margin-bottom:2rem;}
 .hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;margin-bottom:2.5rem;}
 .hero-trust{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
 .ht-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:var(--text-2);font-weight:500;}
 .ht-chk{width:18px;height:18px;background:var(--blue-50);border:1.5px solid #bfdbfe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--blue-700);flex-shrink:0;}
-
-/* Phone */
 .hero-right{display:flex;flex-direction:column;align-items:center;}
 .phone-outer{position:relative;}
 .phone-glow{position:absolute;inset:-40px;background:radial-gradient(ellipse,rgba(37,99,235,.12) 0%,transparent 70%);pointer-events:none;border-radius:50%;}
@@ -128,16 +133,12 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .a-card-sub{font-size:.56rem;color:#6b7280;}
 .a-img{width:100%;height:64px;background:linear-gradient(120deg,#4f46e5,#7c3aed,#db2777,#f59e0b);}
 .a-img.g{background:linear-gradient(120deg,#0ea5e9,#0284c7,#155e75,#064e3b);}
-.a-meta{padding:5px 9px;}
-.a-name{font-size:.68rem;font-weight:600;color:#111827;}
-.a-info{font-size:.54rem;color:#6b7280;font-family:monospace;}
+.a-meta{padding:5px 9px;}.a-name{font-size:.68rem;font-weight:600;color:#111827;}.a-info{font-size:.54rem;color:#6b7280;font-family:monospace;}
 .a-acts{display:flex;gap:5px;padding:0 9px 7px;}
 .a-del{flex:1;background:#fef2f2;color:#dc2626;border:1px solid #fecaca;border-radius:5px;font-size:.58rem;padding:4px 0;font-weight:600;text-align:center;}
 .a-copy{flex:1.5;background:#1e3a8a;color:#fff;border:none;border-radius:5px;font-size:.58rem;padding:4px 0;font-weight:700;text-align:center;}
 .lock-body{flex:1;background:#eef2fc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:2rem 1.5rem;}
-.lock-icon{font-size:2.8rem;margin-bottom:4px;}
-.lock-t{font-size:.95rem;font-weight:800;color:#1e293b;}
-.lock-s{font-size:.65rem;color:#6b7280;margin-top:-4px;}
+.lock-icon{font-size:2.8rem;margin-bottom:4px;}.lock-t{font-size:.95rem;font-weight:800;color:#1e293b;}.lock-s{font-size:.65rem;color:#6b7280;margin-top:-4px;}
 .lock-btn{margin-top:10px;background:#1e3a8a;color:#fff;border:none;border-radius:7px;padding:9px 28px;font-size:.75rem;font-weight:700;}
 .d-ora{background:#ea580c;padding:5px 11px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .d-timer{font-size:.6rem;color:#fff;font-family:monospace;font-weight:600;}
@@ -148,42 +149,100 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .d-zoom{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;font-size:.5rem;padding:2px 9px;border-radius:18px;font-family:monospace;white-space:nowrap;}
 .d-tabs{display:flex;gap:6px;padding:7px 11px;border-bottom:1px solid #f1f5f9;}
 .d-tab{flex:1;text-align:center;padding:4px 0;border-radius:5px;font-size:.65rem;font-weight:700;}
-.d-tab.on{background:#1e3a8a;color:#fff;} .d-tab.off{background:#f1f5f9;color:#64748b;}
+.d-tab.on{background:#1e3a8a;color:#fff;}.d-tab.off{background:#f1f5f9;color:#64748b;}
 .d-sec{background:#eff6ff;padding:4px 11px;font-size:.56rem;color:#1e3a8a;}
 .d-fields{flex:1;padding:6px 11px;}
 .d-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f8fafc;}
-.d-lbl{font-size:.6rem;color:#64748b;font-family:monospace;}
-.d-val{font-size:.6rem;color:#111827;font-family:monospace;font-weight:600;}
+.d-lbl{font-size:.6rem;color:#64748b;font-family:monospace;}.d-val{font-size:.6rem;color:#111827;font-family:monospace;font-weight:600;}
 .d-live{background:#1e3a8a;padding:5px 11px;text-align:center;font-size:.58rem;color:rgba(255,255,255,.82);font-family:monospace;display:flex;align-items:center;justify-content:center;gap:5px;}
 .ldot{width:5px;height:5px;background:#ef4444;border-radius:50%;display:inline-block;animation:blink 1.5s ease-in-out infinite;}
 .a-tabs{background:#fff;border-top:1px solid #e2e8f0;display:flex;align-items:center;padding:5px 0 8px;flex-shrink:0;}
 .a-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.5rem;color:#6b7280;}
-.a-tab.on{color:#1e3a8a;}
-.a-tab-i{font-size:.9rem;}
+.a-tab.on{color:#1e3a8a;}.a-tab-i{font-size:.9rem;}
 .s-dots{display:flex;justify-content:center;gap:6px;margin-top:1rem;}
 .s-dot{width:7px;height:7px;border-radius:50%;background:var(--blue-100);border:none;padding:0;cursor:pointer;transition:background .3s,transform .2s;}
 .s-dot.on{background:var(--blue-800);transform:scale(1.3);}
 .hero-wave{width:100%;line-height:0;display:block;margin-top:4rem;}
 
-/* === STATS === */
+/* ===== STATS (animated counters) ===== */
 #stats{background:var(--blue-800);padding:3.5rem 2rem;}
 .stats-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;}
 .sn{font-size:2.5rem;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;margin-bottom:.35rem;}
 .sl{font-size:.82rem;color:rgba(255,255,255,.65);}
 .sa{color:var(--orange-500);}
 
-/* === VALUE PROPS === */
+/* ===== VALUE PROPS ===== */
 #vp{background:var(--bg-alt);border-top:1px solid var(--blue-100);border-bottom:1px solid var(--blue-100);}
+[data-theme="dark"] #vp{border-color:var(--border);}
 .vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
-.vp-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.75rem;transition:box-shadow .3s,transform .2s,border-color .3s;}
+.vp-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.75rem;transition:box-shadow .3s,transform .2s,border-color .3s;}
 .vp-card:hover{box-shadow:var(--shadow-h);transform:translateY(-4px);border-color:var(--blue-100);}
 .vp-icon{width:48px;height:48px;background:var(--blue-50);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.1rem;transition:background .2s;}
 .vp-card:hover .vp-icon{background:var(--blue-100);}
 .vp-card h3{font-size:1rem;font-weight:700;color:var(--blue-900);margin-bottom:.5rem;}
+[data-theme="dark"] .vp-card h3{color:var(--text);}
 .vp-card p{font-size:.875rem;color:var(--text-2);line-height:1.65;}
 
-/* === ABOUT === */
-#about{background:#fff;}
+/* ===== DOCUMENT SHOWCASE ===== */
+#docs-showcase{background:var(--bg);border-bottom:1px solid var(--border);}
+.docs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem;}
+.doc-tile{background:var(--card-bg);border:2px solid var(--border);border-radius:var(--r-lg);padding:1.5rem 1.25rem;text-align:center;cursor:pointer;transition:border-color .25s,transform .2s,box-shadow .25s;position:relative;overflow:hidden;}
+.doc-tile::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,58,138,.04),transparent);opacity:0;transition:opacity .3s;}
+.doc-tile:hover{border-color:var(--blue-600);transform:translateY(-5px);box-shadow:var(--shadow-h);}
+.doc-tile:hover::before{opacity:1;}
+.doc-tile.active{border-color:var(--blue-600);background:var(--blue-50);box-shadow:var(--shadow-h);}
+[data-theme="dark"] .doc-tile.active{background:var(--blue-50);}
+.doc-tile-icon{font-size:2rem;margin-bottom:.75rem;display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:14px;margin:0 auto .75rem;background:var(--blue-50);border:1.5px solid var(--blue-100);}
+.doc-tile-icon svg{width:28px;height:28px;}
+.doc-tile.active .doc-tile-icon{background:var(--blue-100);}
+.doc-tile-name{font-size:.85rem;font-weight:700;color:var(--blue-900);margin-bottom:.2rem;}
+[data-theme="dark"] .doc-tile-name{color:var(--text);}
+.doc-tile-sub{font-size:.7rem;color:var(--text-2);}
+.doc-preview{margin-top:2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:2rem;min-height:160px;transition:all .35s;display:none;}
+.doc-preview.active{display:block;}
+.doc-preview-inner{display:grid;grid-template-columns:280px 1fr;gap:2.5rem;align-items:center;}
+.doc-preview-visual{border-radius:var(--r-lg);overflow:hidden;height:160px;position:relative;width:100%;}
+.doc-preview-fields{display:flex;flex-direction:column;gap:.6rem;}
+.dpf-row{display:flex;gap:1rem;align-items:center;padding:.35rem 0;border-bottom:1px solid var(--border);}
+.dpf-row:last-of-type{border-bottom:none;}
+.dpf-label{font-size:.75rem;color:var(--text-3);width:90px;flex-shrink:0;font-weight:500;}
+.dpf-val{font-size:.82rem;color:var(--text);font-weight:600;background:var(--bg-alt);padding:3px 10px;border-radius:6px;border:1px solid var(--border);}
+.dpf-val.masked{letter-spacing:.15em;color:var(--text-3);font-family:monospace;}
+.doc-preview-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(45,204,138,.1);border:1px solid rgba(45,204,138,.25);color:#059669;font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:100px;margin-top:.75rem;font-family:monospace;}
+
+/* ===== PRIVACY VISUAL ===== */
+#privacy-viz{background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem;}
+.pv-diagram{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:2rem;position:relative;overflow:hidden;}
+.pv-diagram::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-600),var(--orange-500));}
+.pv-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;position:relative;}
+.pv-node{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.pv-node.phone{background:rgba(30,58,138,.1);border:2px solid var(--blue-200,#bfdbfe);}
+.pv-node.enc{background:rgba(234,88,12,.1);border:2px solid var(--orange-100);}
+.pv-node.vault{background:rgba(5,150,105,.1);border:2px solid rgba(5,150,105,.2);}
+.pv-node.server{background:rgba(239,68,68,.08);border:2px solid rgba(239,68,68,.2);}
+.pv-node.cloud{background:rgba(239,68,68,.08);border:2px solid rgba(239,68,68,.2);}
+.pv-arrow{flex:1;height:2px;position:relative;display:flex;align-items:center;justify-content:center;}
+.pv-arrow.good{background:linear-gradient(90deg,var(--blue-200,#bfdbfe),var(--blue-600));}
+.pv-arrow.bad{background:rgba(239,68,68,.2);}
+.pv-arrow-label{position:absolute;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap;top:-14px;}
+.pv-arrow.good .pv-arrow-label{background:var(--blue-50);color:var(--blue-700);}
+.pv-arrow.bad .pv-arrow-label{background:#fef2f2;color:#dc2626;}
+.pv-node-label{font-size:.75rem;color:var(--text-2);}
+.pv-node-title{font-size:.85rem;font-weight:700;color:var(--text);}
+.pv-section-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .75rem;border-radius:100px;margin-bottom:1rem;display:inline-block;}
+.pv-section-label.good{background:rgba(5,150,105,.1);color:#059669;}
+.pv-section-label.bad{background:rgba(239,68,68,.08);color:#dc2626;}
+.pv-blocked{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:#dc2626;font-weight:600;padding:.5rem .75rem;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;margin-top:.5rem;}
+.pv-facts{display:flex;flex-direction:column;gap:1.25rem;}
+.pv-fact{padding:1.25rem;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-md);transition:border-color .2s;}
+.pv-fact:hover{border-color:var(--blue-200,#bfdbfe);}
+.pv-fact-label{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-600);margin-bottom:.4rem;}
+.pv-fact h3{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.35rem;}
+.pv-fact p{font-size:.82rem;color:var(--text-2);line-height:1.6;}
+
+/* ===== ABOUT ===== */
+#about{background:var(--bg);}
 .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:4rem;}
 .ab-vis{background:var(--blue-800);border-radius:var(--r-xl);padding:2.5rem;color:#fff;position:relative;overflow:hidden;}
 .ab-vis::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,255,255,.04);border-radius:50%;}
@@ -198,36 +257,68 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .ab-body p{font-size:.975rem;color:var(--text-2);line-height:1.85;margin-bottom:1rem;}
 .ab-vals{display:flex;flex-direction:column;gap:.85rem;margin-top:1.75rem;}
 .ab-val{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.1rem;background:var(--bg-alt);border:1px solid var(--blue-100);border-radius:var(--r-md);transition:border-color .2s,background .2s;}
+[data-theme="dark"] .ab-val{border-color:var(--border);}
 .ab-val:hover{border-color:#93c5fd;background:var(--blue-50);}
 .ab-val-i{width:38px;height:38px;flex-shrink:0;background:var(--blue-50);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
 .ab-val h4{font-size:.9rem;font-weight:700;color:var(--blue-900);margin-bottom:2px;}
+[data-theme="dark"] .ab-val h4{color:var(--text);}
 .ab-val p{font-size:.8rem;color:var(--text-2);line-height:1.5;}
 .team-hdr{margin-top:6rem;text-align:center;margin-bottom:2.5rem;}
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
-.tc{text-align:center;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.5rem;transition:box-shadow .3s,transform .2s;}
+.tc{text-align:center;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.5rem;transition:box-shadow .3s,transform .2s;}
 .tc:hover{box-shadow:var(--shadow-h);transform:translateY(-4px);}
 .tc-av{width:76px;height:76px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.75rem;font-weight:800;}
-.tc-av.b{background:var(--blue-800);color:#fff;}
-.tc-av.o{background:var(--orange-600);color:#fff;}
-.tc-av.t{background:#0f766e;color:#fff;}
+.tc-av.b{background:var(--blue-800);color:#fff;}.tc-av.o{background:var(--orange-600);color:#fff;}.tc-av.t{background:#0f766e;color:#fff;}
 .tc h3{font-size:1rem;font-weight:700;color:var(--blue-900);margin-bottom:2px;}
+[data-theme="dark"] .tc h3{color:var(--text);}
 .tc .role{font-size:.78rem;color:var(--orange-600);font-weight:600;margin-bottom:.6rem;}
 .tc p{font-size:.82rem;color:var(--text-2);line-height:1.6;}
 
-/* === SERVICES === */
-#services{background:var(--bg-alt);border-top:1px solid var(--blue-100);}
+/* ===== SERVICES ===== */
+#services{background:var(--bg-alt);border-top:1px solid var(--border);}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
-.svc-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.75rem;position:relative;overflow:hidden;transition:box-shadow .3s,transform .2s,border-color .3s;}
+.svc-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem 1.75rem;position:relative;overflow:hidden;transition:box-shadow .3s,transform .2s,border-color .3s;}
 .svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue-800);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
 .svc-card:hover::before{transform:scaleX(1);}
 .svc-card:hover{box-shadow:var(--shadow-h);transform:translateY(-4px);border-color:var(--blue-100);}
 .svc-icon{width:52px;height:52px;background:var(--blue-50);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.25rem;transition:background .2s,transform .2s;}
 .svc-card:hover .svc-icon{background:var(--blue-100);transform:scale(1.08);}
 .svc-card h3{font-size:1.05rem;font-weight:700;color:var(--blue-900);margin-bottom:.6rem;}
+[data-theme="dark"] .svc-card h3{color:var(--text);}
 .svc-card p{font-size:.875rem;color:var(--text-2);line-height:1.65;margin-bottom:1.25rem;}
 .svc-tag{display:inline-block;font-size:.7rem;font-weight:600;background:var(--blue-50);color:var(--blue-700);border-radius:100px;padding:2px 10px;border:1px solid var(--blue-100);}
 
-/* === TESTIMONIALS === */
+/* ===== PRICING ===== */
+#pricing{background:var(--bg);border-top:1px solid var(--border);}
+.pricing-toggle{display:flex;align-items:center;justify-content:center;gap:1rem;margin:2rem 0;}
+.pt-label{font-size:.9rem;font-weight:600;color:var(--text-2);}
+.pt-label.active{color:var(--blue-800);}
+[data-theme="dark"] .pt-label.active{color:var(--blue-400);}
+.pt-switch{width:52px;height:28px;background:var(--blue-800);border-radius:100px;position:relative;cursor:pointer;border:none;transition:background .2s;flex-shrink:0;}
+.pt-switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .25s;}
+.pt-switch.monthly::after{transform:translateX(0);}
+.pt-switch.annual::after{transform:translateX(24px);}
+.pt-save{background:var(--orange-50);color:var(--orange-700);font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:100px;border:1px solid var(--orange-100);}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:760px;margin:0 auto;}
+.plan-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-xl);padding:2.25rem;position:relative;transition:transform .2s,box-shadow .2s;}
+.plan-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-h);}
+.plan-card.featured{border-color:rgba(30,58,138,.35);background:linear-gradient(160deg,rgba(30,58,138,.04),transparent);}
+[data-theme="dark"] .plan-card.featured{background:linear-gradient(160deg,rgba(30,58,138,.15),transparent);}
+.plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--blue-800);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 16px;border-radius:100px;white-space:nowrap;}
+.plan-name{font-size:1.1rem;font-weight:700;color:var(--text);}
+.plan-price{font-size:2.5rem;font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1;margin:1rem 0 .25rem;}
+.plan-price span{font-size:.9rem;font-weight:400;color:var(--text-2);letter-spacing:0;}
+.plan-per{font-size:.75rem;color:var(--text-3);font-family:monospace;margin-bottom:1rem;}
+.plan-features{list-style:none;margin:1.5rem 0;}
+.plan-features li{font-size:.875rem;color:var(--text-2);padding:.4rem 0;display:flex;align-items:center;gap:.6rem;border-bottom:1px solid var(--border);}
+.plan-features li:last-child{border-bottom:none;}
+.plan-features li::before{content:'✓';color:#059669;font-weight:700;font-size:.8rem;flex-shrink:0;}
+.plan-features li.locked::before{content:'—';color:var(--text-3);}
+.plan-features li.locked{color:var(--text-3);}
+.plan-btn{width:100%;justify-content:center;margin-top:.5rem;}
+.plan-annual-note{font-size:.72rem;color:var(--text-3);text-align:center;margin-top:.5rem;}
+
+/* ===== TESTIMONIALS ===== */
 #testimonials{background:var(--blue-800);}
 #testimonials .sh{color:#fff;}
 #testimonials .sb{color:rgba(255,255,255,.7);}
@@ -240,24 +331,43 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .t-quote{font-family:var(--serif);font-size:1rem;color:rgba(255,255,255,.88);line-height:1.75;margin-bottom:1.5rem;font-style:italic;}
 .t-person{display:flex;align-items:center;gap:.85rem;}
 .t-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;color:#fff;flex-shrink:0;}
-.av1{background:var(--orange-600);} .av2{background:#0f766e;} .av3{background:#7c3aed;} .av4{background:#be123c;} .av5{background:#0369a1;}
+.av1{background:var(--orange-600);}.av2{background:#0f766e;}.av3{background:#7c3aed;}.av4{background:#be123c;}.av5{background:#0369a1;}
 .t-name{font-size:.9rem;font-weight:700;color:#fff;}
 .t-role{font-size:.75rem;color:rgba(255,255,255,.55);}
 
-/* === CONTACT === */
-#contact{background:#fff;}
+/* ===== FAQ ===== */
+#faq{background:var(--bg-alt);border-top:1px solid var(--border);}
+.faq-list{margin-top:3rem;max-width:760px;margin-left:auto;margin-right:auto;display:flex;flex-direction:column;gap:.75rem;}
+.faq-item{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.faq-item.open{border-color:var(--blue-200,#bfdbfe);box-shadow:var(--shadow);}
+[data-theme="dark"] .faq-item.open{border-color:var(--blue-100);}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;font-family:var(--ff);transition:background .2s;}
+.faq-q:hover{background:var(--bg-alt);}
+.faq-q-text{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.4;}
+.faq-icon{width:28px;height:28px;flex-shrink:0;background:var(--blue-50);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--blue-700);transition:transform .3s,background .2s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--blue-800);color:#fff;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1);}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-a-inner{padding:0 1.5rem 1.25rem;font-size:.9rem;color:var(--text-2);line-height:1.75;border-top:1px solid var(--border);}
+.faq-a-inner a{color:var(--blue-600);text-decoration:underline;}
+
+/* ===== CONTACT ===== */
+#contact{background:var(--bg);border-top:1px solid var(--border);}
 .ct-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;margin-top:3.5rem;}
 .ct-det{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.75rem;}
 .ct-det-i{width:44px;height:44px;background:var(--blue-50);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
 .ct-det h4{font-size:.88rem;font-weight:700;color:var(--blue-900);margin-bottom:2px;}
+[data-theme="dark"] .ct-det h4{color:var(--text);}
 .ct-det p{font-size:.85rem;color:var(--text-2);line-height:1.5;}
 .ct-soc{display:flex;gap:.6rem;margin-top:2rem;}
 .soc-btn{width:42px;height:42px;background:var(--bg-alt);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:background .2s,border-color .2s,transform .15s;cursor:pointer;}
 .soc-btn:hover{background:var(--blue-50);border-color:#bfdbfe;transform:translateY(-2px);}
 .ct-form{background:var(--bg-alt);border:1px solid var(--blue-100);border-radius:var(--r-xl);padding:2.5rem;}
+[data-theme="dark"] .ct-form{border-color:var(--border);}
 .fg{margin-bottom:1.25rem;}
 .fg label{display:block;font-size:.83rem;font-weight:600;color:var(--blue-900);margin-bottom:.45rem;}
-.fg input,.fg textarea,.fg select{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:var(--r-md);padding:.75rem 1rem;font-size:.9rem;font-family:var(--ff);color:var(--text);transition:border-color .2s,box-shadow .2s;outline:none;resize:vertical;}
+[data-theme="dark"] .fg label{color:var(--text);}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--card-bg);border:1.5px solid var(--border);border-radius:var(--r-md);padding:.75rem 1rem;font-size:.9rem;font-family:var(--ff);color:var(--text);transition:border-color .2s,box-shadow .2s;outline:none;resize:vertical;}
 .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(37,99,235,.12);}
 .fg textarea{min-height:120px;}
 .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
@@ -265,15 +375,16 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .f-ok{display:none;text-align:center;padding:2rem 1rem;}
 .f-ok-i{font-size:2.5rem;margin-bottom:.75rem;}
 .f-ok h3{font-size:1.1rem;font-weight:700;margin-bottom:.4rem;color:var(--blue-900);}
+[data-theme="dark"] .f-ok h3{color:var(--text);}
 .f-ok p{font-size:.875rem;color:var(--text-2);}
 
-/* === DOWNLOAD CTA === */
+/* ===== DOWNLOAD CTA ===== */
 #dl{background:linear-gradient(135deg,var(--blue-800) 0%,#1d4ed8 60%,#2563eb 100%);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;}
 #dl::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;background:rgba(234,88,12,.15);border-radius:50%;}
 #dl::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%;}
 #dl h2{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.1;margin-bottom:.85rem;position:relative;z-index:1;}
 #dl h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:#fdba74;}
-#dl > p{color:rgba(255,255,255,.75);font-size:1.05rem;margin-bottom:2rem;position:relative;z-index:1;}
+#dl>p{color:rgba(255,255,255,.75);font-size:1.05rem;margin-bottom:2rem;position:relative;z-index:1;}
 .sb-wrap{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
 .s-badge{display:inline-flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:var(--r-md);padding:.8rem 1.4rem;color:#fff;transition:background .2s,border-color .2s,transform .15s;}
 .s-badge:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4);transform:translateY(-2px);}
@@ -282,7 +393,7 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .s-badge-t small{font-size:.65rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;}
 .dl-note{margin-top:1.5rem;font-size:.75rem;color:rgba(255,255,255,.45);position:relative;z-index:1;}
 
-/* === FOOTER === */
+/* ===== FOOTER ===== */
 footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 2rem;}
 .ft-in{max-width:1200px;margin:0 auto;}
 .ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:2rem;}
@@ -303,7 +414,25 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
 .ft-leg a{font-size:.78rem;color:rgba(255,255,255,.4);transition:color .2s;}
 .ft-leg a:hover{color:rgba(255,255,255,.8);}
 
-/* === RESPONSIVE === */
+/* ===== SCROLL TO TOP ===== */
+#scroll-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--blue-800);color:#fff;border:none;border-radius:12px;font-size:1.1rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(30,58,138,.3);cursor:pointer;transition:opacity .3s,transform .3s,box-shadow .2s;z-index:500;opacity:0;transform:translateY(16px);pointer-events:none;}
+#scroll-top.show{opacity:1;transform:none;pointer-events:auto;}
+#scroll-top:hover{background:var(--blue-700);transform:translateY(-2px);box-shadow:0 8px 24px rgba(30,58,138,.4);}
+
+/* ===== POPIA BANNER ===== */
+#popia-banner{position:fixed;bottom:0;left:0;right:0;z-index:900;background:var(--blue-900);color:#fff;padding:.85rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);box-shadow:0 -4px 24px rgba(0,0,0,.2);}
+#popia-banner.show{transform:translateY(0);}
+.pb-text{font-size:.82rem;color:rgba(255,255,255,.85);max-width:70ch;line-height:1.5;}
+.pb-text strong{color:#fff;}
+.pb-actions{display:flex;gap:.75rem;flex-shrink:0;}
+.pb-btn{padding:.5rem 1.1rem;border-radius:6px;font-size:.82rem;font-weight:600;font-family:var(--ff);cursor:pointer;border:none;transition:background .2s,transform .15s;}
+.pb-btn:hover{transform:translateY(-1px);}
+.pb-btn.accept{background:var(--blue-600);color:#fff;}
+.pb-btn.accept:hover{background:var(--blue-500);}
+.pb-btn.info{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);}
+.pb-btn.info:hover{background:rgba(255,255,255,.2);}
+
+/* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
   .hero-wrap{grid-template-columns:1fr;gap:3rem;text-align:center;}
   .hero-sub,.hero-trust{max-width:56ch;margin-left:auto;margin-right:auto;}
@@ -312,6 +441,8 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
   .ab-grid{grid-template-columns:1fr;gap:3rem;}
   .ct-grid{grid-template-columns:1fr;gap:3rem;}
   .ft-top{grid-template-columns:1fr 1fr;gap:2rem;}
+  .pv-grid{grid-template-columns:1fr;gap:3rem;}
+  .docs-grid{grid-template-columns:repeat(4,1fr);}
 }
 @media(max-width:768px){
   .nav-links{display:none;}
@@ -323,14 +454,30 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
   .ft-bot{flex-direction:column;text-align:center;}
   .wrap{padding:4.5rem 1.25rem;}
   .ab-grid{gap:2.5rem;}
+  .docs-grid{grid-template-columns:repeat(2,1fr);}
+  .pricing-grid{grid-template-columns:1fr;max-width:380px;margin:0 auto;}
+  .doc-preview-inner{grid-template-columns:1fr;}
 }
 @media(max-width:540px){
   .stats-in{grid-template-columns:1fr 1fr;gap:1.5rem;}
   .sn{font-size:2rem;}
+  #popia-banner{flex-direction:column;align-items:flex-start;}
 }
 </style>
 </head>
 <body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- POPIA BANNER -->
+<div id="popia-banner">
+  <p class="pb-text"><strong>🔒 A note on privacy:</strong> Zari Vault's website uses no tracking cookies, no analytics, and collects no personal data. This notice exists purely out of good manners — and to walk the talk on POPIA compliance.</p>
+  <div class="pb-actions">
+    <button class="pb-btn info" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});dismissBanner();">Learn More</button>
+    <button class="pb-btn accept" onclick="dismissBanner()">Got it ✓</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav id="navbar">
@@ -343,19 +490,22 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       <li><a href="#home" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#services">Features</a></li>
-      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#dl" class="nav-cta">Download Free</a></li>
     </ul>
-    <button class="nav-ham" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <button class="nav-ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
   <div class="nav-mob" id="nmob">
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#services">Features</a>
-    <a href="#testimonials">Reviews</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
     <a href="#dl" style="color:var(--blue-700);font-weight:700;">Download Free →</a>
   </div>
@@ -385,14 +535,9 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
           <div class="pi">
             <div class="p-island"></div>
             <div class="scr-wrap">
-
-              <!-- Screen 0 -->
               <div class="scr on" id="sc0">
                 <div class="a-hdr">
-                  <div class="a-hdr-row">
-                    <div><div class="a-title">Zari Vault</div><div class="a-sub">Your ID. Your Device</div></div>
-                    <div class="a-lockbtn">🔒 Lock</div>
-                  </div>
+                  <div class="a-hdr-row"><div><div class="a-title">Zari Vault</div><div class="a-sub">Your ID. Your Device</div></div><div class="a-lockbtn">🔒 Lock</div></div>
                   <div class="a-banner">🛡️ Personal copies stored securely on your device</div>
                 </div>
                 <div class="a-body">
@@ -414,38 +559,16 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
                   <div class="a-tab"><span class="a-tab-i">⚙️</span>Settings</div>
                 </div>
               </div>
-
-              <!-- Screen 1 -->
               <div class="scr" id="sc1">
-                <div class="a-hdr">
-                  <div class="a-hdr-row"><div><div class="a-title">Zari Vault</div><div class="a-sub">Your ID. Your Device</div></div></div>
-                  <div class="a-banner">🛡️ Personal copies stored securely on your device</div>
-                </div>
-                <div class="lock-body">
-                  <div class="lock-icon">🔒</div>
-                  <div class="lock-t">Vault Locked</div>
-                  <div class="lock-s">Authenticate to unlock</div>
-                  <button class="lock-btn">Unlock Vault</button>
-                </div>
-                <div class="a-tabs">
-                  <div class="a-tab on"><span class="a-tab-i">🔐</span>Vault</div>
-                  <div class="a-tab"><span class="a-tab-i">🔍</span>Scan</div>
-                  <div class="a-tab"><span class="a-tab-i">⚙️</span>Settings</div>
-                </div>
+                <div class="a-hdr"><div class="a-hdr-row"><div><div class="a-title">Zari Vault</div><div class="a-sub">Your ID. Your Device</div></div></div><div class="a-banner">🛡️ Personal copies stored securely on your device</div></div>
+                <div class="lock-body"><div class="lock-icon">🔒</div><div class="lock-t">Vault Locked</div><div class="lock-s">Authenticate to unlock</div><button class="lock-btn">Unlock Vault</button></div>
+                <div class="a-tabs"><div class="a-tab on"><span class="a-tab-i">🔐</span>Vault</div><div class="a-tab"><span class="a-tab-i">🔍</span>Scan</div><div class="a-tab"><span class="a-tab-i">⚙️</span>Settings</div></div>
               </div>
-
-              <!-- Screen 2 -->
               <div class="scr" id="sc2">
-                <div class="d-ora">
-                  <div class="d-timer">⏱ Auto-close: 28s</div>
-                  <button class="d-close">✕ Close</button>
-                </div>
+                <div class="d-ora"><div class="d-timer">⏱ Auto-close: 28s</div><button class="d-close">✕ Close</button></div>
                 <div class="d-body">
                   <div class="d-title">🪪 ID Card</div>
-                  <div class="d-img">
-                    <div style="position:absolute;inset:0;background:linear-gradient(120deg,#ec4899,#f59e0b,#10b981);opacity:.85;"></div>
-                    <div class="d-zoom">🔍 Zoom (Premium)</div>
-                  </div>
+                  <div class="d-img"><div style="position:absolute;inset:0;background:linear-gradient(120deg,#ec4899,#f59e0b,#10b981);opacity:.85;"></div><div class="d-zoom">🔍 Zoom (Premium)</div></div>
                   <div class="d-tabs"><div class="d-tab on">Front</div><div class="d-tab off">Back</div></div>
                   <div class="d-sec">🛡️ Personal copy — stored securely on your device</div>
                   <div class="d-fields">
@@ -457,7 +580,6 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
                 </div>
                 <div class="d-live"><span class="ldot"></span> Live View · 02:25</div>
               </div>
-
             </div>
           </div>
         </div>
@@ -474,13 +596,13 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
   </svg>
 </section>
 
-<!-- STATS -->
+<!-- STATS (animated counters) -->
 <div id="stats">
   <div class="stats-in">
-    <div class="rev"><div class="sn">149</div><div class="sl">Countries Supported</div></div>
-    <div class="rev d1"><div class="sn sa">3s</div><div class="sl">Document Access Time</div></div>
-    <div class="rev d2"><div class="sn">AES‑256</div><div class="sl">Encryption Standard</div></div>
-    <div class="rev d3"><div class="sn sa">0</div><div class="sl">Data Sent to Any Server</div></div>
+    <div class="rev"><div class="sn" data-count="149" data-suffix="">0</div><div class="sl">Countries Supported</div></div>
+    <div class="rev d1"><div class="sn sa" data-count="3" data-suffix="s">0s</div><div class="sl">Document Access Time</div></div>
+    <div class="rev d2"><div class="sn" data-static="AES‑256">AES‑256</div><div class="sl">Encryption Standard</div></div>
+    <div class="rev d3"><div class="sn sa" data-count="0" data-suffix="">0</div><div class="sl">Data Sent to Any Server</div></div>
   </div>
 </div>
 
@@ -493,12 +615,305 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       <p class="sb rev d2" style="margin:0 auto;">From estate boom gates to hospital check-ins — your documents ready before anyone can ask.</p>
     </div>
     <div class="vp-grid">
-      <div class="vp-card rev d1"><div class="vp-icon">🔒</div><h3>Biometric Lock</h3><p>Face ID, Touch ID, or a 6-digit PIN. Nobody gets in without your face or fingerprint — including us. Your documents are yours, full stop.</p></div>
-      <div class="vp-card rev d2"><div class="vp-icon">⚡</div><h3>3-Second Access</h3><p>Unlock and show any document in under 3 seconds. Estate security, traffic officers, bank FICA — handled before they finish asking.</p></div>
-      <div class="vp-card rev d3"><div class="vp-icon">🛡️</div><h3>Zero Cloud Storage</h3><p>No upload. No sync. No server. Your documents are encrypted on your device and never leave it. There's no database to breach.</p></div>
-      <div class="vp-card rev d2"><div class="vp-icon">🌍</div><h3>149 Countries</h3><p>Smart ID in South Africa becomes Aadhaar in India, National ID in Kenya, BRP in the UK. Zari adapts to wherever you are.</p></div>
-      <div class="vp-card rev d3"><div class="vp-icon">⏱️</div><h3>Auto-Lock Timer</h3><p>Documents close automatically after 30 seconds to 2 minutes. Configurable with Vault Premium. Never left open by accident.</p></div>
-      <div class="vp-card rev d4"><div class="vp-icon">🔔</div><h3>Expiry Alerts</h3><p>Get notified before your ID, licence or passport expires. Never show up to a roadblock with an expired licence again.</p></div>
+      <div class="vp-card rev d1"><div class="vp-icon">🔒</div><h3>Biometric Lock</h3><p>Face ID, Touch ID, or a 6-digit PIN. Nobody gets in without your face or fingerprint — including us.</p></div>
+      <div class="vp-card rev d2"><div class="vp-icon">⚡</div><h3>3-Second Access</h3><p>Unlock and show any document in under 3 seconds. Estate security, traffic officers, bank FICA — handled instantly.</p></div>
+      <div class="vp-card rev d3"><div class="vp-icon">🛡️</div><h3>Zero Cloud Storage</h3><p>No upload. No sync. No server. Your documents are encrypted on your device and never leave it.</p></div>
+      <div class="vp-card rev d2"><div class="vp-icon">🌍</div><h3>149 Countries</h3><p>Smart ID in South Africa becomes Aadhaar in India, National ID in Kenya, BRP in the UK. Zari adapts.</p></div>
+      <div class="vp-card rev d3"><div class="vp-icon">⏱️</div><h3>Auto-Lock Timer</h3><p>Documents close automatically after 30 seconds to 2 minutes. Never left open by accident.</p></div>
+      <div class="vp-card rev d4"><div class="vp-icon">🔔</div><h3>Expiry Alerts</h3><p>Get notified before your ID, licence or passport expires. Never show up with an out-of-date document again.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENT SHOWCASE -->
+<section id="docs-showcase">
+  <div class="wrap">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <span class="eyebrow rev">What you can store</span>
+      <h2 class="sh rev d1">Every document you carry,<br><em>digitised and protected</em></h2>
+      <p class="sb rev d2" style="margin:0 auto;">Tap any document type to see what Zari Vault stores and how it protects it.</p>
+    </div>
+    <div class="docs-grid rev d1">
+      <div class="doc-tile active" data-doc="id" onclick="showDoc('id',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><path d="M13 10h4M13 13h3"/></svg></span><div class="doc-tile-name">Smart ID Card</div><div class="doc-tile-sub">National Identity</div></div>
+      <div class="doc-tile" data-doc="licence" onclick="showDoc('licence',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><rect x="1" y="7" width="22" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M1 13h22"/><circle cx="7" cy="17" r="1"/><circle cx="17" cy="17" r="1"/></svg></span><div class="doc-tile-name">Driver's Licence</div><div class="doc-tile-sub">Motor Vehicle</div></div>
+      <div class="doc-tile" data-doc="passport" onclick="showDoc('passport',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17h8M9 14h6"/></svg></span><div class="doc-tile-name">Passport</div><div class="doc-tile-sub">Travel Document</div></div>
+      <div class="doc-tile" data-doc="medical" onclick="showDoc('medical',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><div class="doc-tile-name">Medical Aid Card</div><div class="doc-tile-sub">Health Insurance</div></div>
+      <div class="doc-tile" data-doc="vehicle" onclick="showDoc('vehicle',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h13l4 4v4a2 2 0 0 1-2 2h-2"/><circle cx="8" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 11V7"/></svg></span><div class="doc-tile-name">Vehicle Registration</div><div class="doc-tile-sub">Licence Disc</div></div>
+      <div class="doc-tile" data-doc="student" onclick="showDoc('student',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><div class="doc-tile-name">Student Card</div><div class="doc-tile-sub">Academic Access</div></div>
+      <div class="doc-tile" data-doc="residence" onclick="showDoc('residence',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><div class="doc-tile-name">Proof of Residence</div><div class="doc-tile-sub">FICA Compliance</div></div>
+      <div class="doc-tile" data-doc="insurance" onclick="showDoc('insurance',this)"><span class="doc-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div class="doc-tile-name">Vehicle Insurance</div><div class="doc-tile-sub">Certificate</div></div>
+    </div>
+    <div id="doc-preview-id" class="doc-preview active rev d2">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#1e3a8a,#2563eb,#7c3aed);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Smart ID</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">🪪</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">SA Smart ID Card</span></div>
+          <div class="dpf-row"><span class="dpf-label">ID Number</span><span class="dpf-val masked">••••••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Full name</span><span class="dpf-val masked">•••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Expiry</span><span class="dpf-val">No expiry</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front + Back</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-licence" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#0f766e,#0ea5e9,#0284c7);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Driver's Licence</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">🚗</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">Driver's Licence</span></div>
+          <div class="dpf-row"><span class="dpf-label">Licence no.</span><span class="dpf-val masked">••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Code</span><span class="dpf-val">Code 8 / Code 10</span></div>
+          <div class="dpf-row"><span class="dpf-label">Expiry</span><span class="dpf-val">5-year renewal</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front + Back</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-passport" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8,#0ea5e9);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Passport</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">📘</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">RSA Passport</span></div>
+          <div class="dpf-row"><span class="dpf-label">Passport no.</span><span class="dpf-val masked">••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Nationality</span><span class="dpf-val">South African</span></div>
+          <div class="dpf-row"><span class="dpf-label">Expiry</span><span class="dpf-val">10-year renewal</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Photo page</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-medical" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#be123c,#e11d48,#f43f5e);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Medical Aid</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">❤️</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">Medical Aid Card</span></div>
+          <div class="dpf-row"><span class="dpf-label">Member no.</span><span class="dpf-val masked">•••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Scheme</span><span class="dpf-val masked">••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Plan type</span><span class="dpf-val masked">••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front + Back</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-vehicle" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#d97706,#f59e0b,#fbbf24);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Vehicle Reg.</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">🚗</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">Vehicle Registration</span></div>
+          <div class="dpf-row"><span class="dpf-label">Reg number</span><span class="dpf-val masked">••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">VIN</span><span class="dpf-val masked">•••••••••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Expiry</span><span class="dpf-val">Annual renewal</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front only</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-student" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#7c3aed,#6d28d9,#a855f7);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Student Card</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">📚</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">Student Card</span></div>
+          <div class="dpf-row"><span class="dpf-label">Student no.</span><span class="dpf-val masked">•••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Institution</span><span class="dpf-val masked">••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Expiry</span><span class="dpf-val">Annual renewal</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front only</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-residence" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#064e3b,#059669,#10b981);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Proof of Residence</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">🏠</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">Proof of Residence</span></div>
+          <div class="dpf-row"><span class="dpf-label">Address</span><span class="dpf-val masked">••••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Issued by</span><span class="dpf-val masked">••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Use case</span><span class="dpf-val">FICA / Banking</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front only</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="doc-preview-insurance" class="doc-preview">
+      <div class="doc-preview-inner">
+        <div><div class="doc-preview-visual" style="background:linear-gradient(135deg,#0369a1,#0284c7,#38bdf8);">
+          <div style="position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <div style="font-size:.6rem;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.08em;text-transform:uppercase;">Personal Copy</div>
+                <div style="font-size:.9rem;color:#fff;font-weight:800;margin-top:2px;">Insurance Cert.</div>
+              </div>
+              <div style="font-size:1.4rem;opacity:.9;">🛡️</div>
+            </div>
+            <div>
+              <div style="font-size:.55rem;color:rgba(255,255,255,.5);letter-spacing:.25em;font-family:monospace;">•••• •••• •••• ••••</div>
+              <div style="font-size:.58rem;color:rgba(255,255,255,.6);margin-top:6px;font-weight:600;">🔒 AES-256 · Zari Vault</div>
+            </div>
+          </div>
+        </div></div>
+        <div class="doc-preview-fields">
+          <div class="dpf-row"><span class="dpf-label">Doc type</span><span class="dpf-val">Insurance Certificate</span></div>
+          <div class="dpf-row"><span class="dpf-label">Policy no.</span><span class="dpf-val masked">•••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Insurer</span><span class="dpf-val masked">••••••••••</span></div>
+          <div class="dpf-row"><span class="dpf-label">Expiry</span><span class="dpf-val">Annual renewal</span></div>
+          <div class="dpf-row"><span class="dpf-label">Sides</span><span class="dpf-val">Front only</span></div>
+          <div><span class="doc-preview-badge">🔒 AES-256 encrypted on device</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY DIAGRAM -->
+<section id="privacy-viz">
+  <div class="wrap">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <span class="eyebrow rev">Privacy architecture</span>
+      <h2 class="sh rev d1">See exactly where<br>your data <em>doesn't go</em></h2>
+      <p class="sb rev d2" style="margin:0 auto;">Most document apps route your files through external servers. Zari Vault is architecturally different.</p>
+    </div>
+    <div class="pv-grid">
+      <div class="rev-l">
+        <div class="pv-diagram">
+          <div style="margin-bottom:1.5rem;">
+            <span class="pv-section-label good">✓ Zari Vault — your data flow</span>
+            <div class="pv-row">
+              <div class="pv-node phone">📱</div>
+              <div class="pv-arrow good"><span class="pv-arrow-label">AES-256 encrypt</span></div>
+              <div class="pv-node enc">🔐</div>
+              <div class="pv-arrow good"><span class="pv-arrow-label">stored locally</span></div>
+              <div class="pv-node vault">🏠</div>
+            </div>
+            <div style="font-size:.78rem;color:var(--text-2);margin-top:.5rem;">Your phone → Encrypted → Stays on your device. Full stop.</div>
+          </div>
+          <div style="border-top:1px solid var(--border);padding-top:1.5rem;">
+            <span class="pv-section-label bad">✗ Typical cloud document app</span>
+            <div class="pv-row">
+              <div class="pv-node phone">📱</div>
+              <div class="pv-arrow bad"><span class="pv-arrow-label">upload</span></div>
+              <div class="pv-node server">🖥️</div>
+              <div class="pv-arrow bad"><span class="pv-arrow-label">sync / share</span></div>
+              <div class="pv-node cloud">☁️</div>
+            </div>
+            <div class="pv-blocked">⚠️ Breach risk · Subpoena risk · Third-party sharing</div>
+          </div>
+        </div>
+      </div>
+      <div class="pv-facts rev-r">
+        <div class="pv-fact">
+          <div class="pv-fact-label">The reality</div>
+          <h3>Your ID number unlocks your entire life</h3>
+          <p>Bank accounts, credit, SIM registration, property. Once an ID number leaks, fraudsters use it for years — opening accounts and taking loans in your name long after the breach.</p>
+        </div>
+        <div class="pv-fact">
+          <div class="pv-fact-label">Cloud risk</div>
+          <h3>Every server upload is a potential breach</h3>
+          <p>When your documents live on a server, they're exposed to insider threats, hackers, and government orders — regardless of what a privacy policy says. No server means no breach surface.</p>
+        </div>
+        <div class="pv-fact">
+          <div class="pv-fact-label">Your POPIA rights</div>
+          <h3>South Africans have strong data protections</h3>
+          <p>Under POPIA, you have the right to know what data is collected about you, to access it, correct it, or delete it. Any app storing your documents is a data processor — and must notify you of breaches.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -522,8 +937,8 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       </div>
       <div class="rev-r">
         <div class="ab-body">
-          <p>Zari Vault was born from a simple frustration: fumbling through a wallet at an estate boom gate, failing to find an expired licence at a roadblock, scrambling for a passport number during online check-in. Identity documents are the most important cards in your life — yet we treat them like an afterthought.</p>
-          <p>We designed Zari Vault to feel like the app that actually lives on your home screen. Fast, clean, and completely private. No account to create, no email to verify, no data to hand over. Just scan your document, lock the vault, and it's there when you need it.</p>
+          <p>Zari Vault was born from a simple frustration: fumbling through a wallet at an estate boom gate, failing to find an expired licence at a roadblock, scrambling for a passport number during online check-in.</p>
+          <p>We designed Zari Vault to feel like the app that actually lives on your home screen. Fast, clean, and completely private. No account to create, no email to verify, no data to hand over.</p>
           <p>POPIA compliant by architecture, not by checkbox. South Africa's data protection law demands better from every app that handles your personal information. Zari Vault was built to exceed that standard.</p>
         </div>
         <div class="ab-vals">
@@ -533,10 +948,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
         </div>
       </div>
     </div>
-    <div class="team-hdr">
-      <span class="eyebrow rev">The Team</span>
-      <h2 class="sh rev d1" style="margin-top:.5rem;">The people behind <em>your vault</em></h2>
-    </div>
+    <div class="team-hdr"><span class="eyebrow rev">The Team</span><h2 class="sh rev d1" style="margin-top:.5rem;">The people behind <em>your vault</em></h2></div>
     <div class="team-grid">
       <div class="tc rev d1"><div class="tc-av b">AK</div><h3>Aiden Khumalo</h3><div class="role">Co-founder & CEO</div><p>Former fintech engineer. Spent 8 years building secure payment infrastructure before deciding identity deserved the same treatment.</p></div>
       <div class="tc rev d2"><div class="tc-av o">LP</div><h3>Lerato Phiri</h3><div class="role">Co-founder & Design Lead</div><p>Product designer obsessed with reducing friction. If you can do it in 3 taps, Lerato will find a way to do it in 2.</p></div>
@@ -552,15 +964,70 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
     <h2 class="sh rev d1">Everything you'd expect.<br><em>Nothing you wouldn't.</em></h2>
     <p class="sb rev d2">No hidden permissions, no background syncing, no ad targeting. Just a vault that does exactly what it says.</p>
     <div class="svc-grid">
-      <div class="svc-card rev d1"><div class="svc-icon">🪪</div><h3>Smart Document Scanning</h3><p>Scan front and back of any supported document. Zari guides you and instantly encrypts the result on your device. No blur, no waiting.</p><span class="svc-tag">8 document types</span></div>
-      <div class="svc-card rev d2"><div class="svc-icon">🫆</div><h3>Biometric Authentication</h3><p>Face ID, Touch ID, or a 6-digit PIN protect your entire vault. Every document access requires fresh authentication — no exceptions.</p><span class="svc-tag">Face ID · Touch ID · PIN</span></div>
-      <div class="svc-card rev d3"><div class="svc-icon">🔐</div><h3>AES-256 Encryption</h3><p>The same standard used by governments worldwide. Every document encrypted at rest using keys stored in your phone's Secure Enclave.</p><span class="svc-tag">Military-grade</span></div>
-      <div class="svc-card rev d1"><div class="svc-icon">⏱️</div><h3>Auto-Lock Timer</h3><p>Configure documents to close automatically after 30 seconds, 1 or 2 minutes. Never risk leaving sensitive information on screen.</p><span class="svc-tag">Premium feature</span></div>
-      <div class="svc-card rev d2"><div class="svc-icon">🔔</div><h3>Document Expiry Alerts</h3><p>Timely reminders before your ID, licence, passport or registration expires. Never get caught with an out-of-date document again.</p><span class="svc-tag">Premium feature</span></div>
-      <div class="svc-card rev d3"><div class="svc-icon">🌍</div><h3>149-Country Support</h3><p>Your Smart ID in SA is an Aadhaar in India, National ID in Kenya, BRP in the UK. Adapts document types to your country automatically.</p><span class="svc-tag">Global coverage</span></div>
-      <div class="svc-card rev d2"><div class="svc-icon">📋</div><h3>Secure Clipboard Copy</h3><p>Copy document details to clipboard — with biometric verification required each time. Your data, on your terms.</p><span class="svc-tag">Premium feature</span></div>
-      <div class="svc-card rev d3"><div class="svc-icon">🔍</div><h3>Pinch-to-Zoom</h3><p>Zoom in on any stored document for detailed inspection. Perfect for reading fine print on medical aid cards or registration numbers.</p><span class="svc-tag">Premium feature</span></div>
-      <div class="svc-card rev d4"><div class="svc-icon">🏷️</div><h3>Custom Nicknames</h3><p>Label documents your way. "Work Passport", "Mum's Medical Aid", "Old Car Disc" — organise your vault the way you actually think.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d1"><div class="svc-icon">🪪</div><h3>Smart Document Scanning</h3><p>Scan front and back of any supported document. Zari guides you and instantly encrypts the result on your device.</p><span class="svc-tag">8 document types</span></div>
+      <div class="svc-card rev d2"><div class="svc-icon">🫆</div><h3>Biometric Authentication</h3><p>Face ID, Touch ID, or a 6-digit PIN. Every document access requires fresh authentication — no exceptions.</p><span class="svc-tag">Face ID · Touch ID · PIN</span></div>
+      <div class="svc-card rev d3"><div class="svc-icon">🔐</div><h3>AES-256 Encryption</h3><p>The same standard used by governments worldwide. Every document encrypted at rest in your phone's Secure Enclave.</p><span class="svc-tag">Military-grade</span></div>
+      <div class="svc-card rev d1"><div class="svc-icon">⏱️</div><h3>Auto-Lock Timer</h3><p>Configure documents to close after 30 seconds to 2 minutes. Never risk leaving sensitive info on screen.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d2"><div class="svc-icon">🔔</div><h3>Document Expiry Alerts</h3><p>Timely reminders before your ID, licence, or passport expires. Never get caught with an out-of-date document.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d3"><div class="svc-icon">🌍</div><h3>149-Country Support</h3><p>Your Smart ID in SA is an Aadhaar in India, National ID in Kenya, BRP in the UK. Adapts to your country automatically.</p><span class="svc-tag">Global coverage</span></div>
+      <div class="svc-card rev d2"><div class="svc-icon">📋</div><h3>Secure Clipboard Copy</h3><p>Copy document details to clipboard with biometric verification required every time. Your data, on your terms.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d3"><div class="svc-icon">🔍</div><h3>Pinch-to-Zoom</h3><p>Zoom in on any stored document for detailed inspection — perfect for fine print on medical aid cards.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d4"><div class="svc-icon">🏷️</div><h3>Custom Nicknames</h3><p>"Work Passport", "Mum's Medical Aid", "Old Car Disc" — organise your vault the way you actually think.</p><span class="svc-tag">Premium feature</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <span class="eyebrow rev">Pricing</span>
+      <h2 class="sh rev d1">Free to start.<br><em>Premium</em> when you're ready.</h2>
+      <p class="sb rev d2" style="margin:0 auto;">Your first 3 documents are always free. No credit card. No account required.</p>
+    </div>
+    <div class="pricing-toggle rev d2">
+      <span class="pt-label active" id="lbl-monthly">Monthly</span>
+      <button class="pt-switch annual" id="price-toggle" onclick="togglePricing()" aria-label="Toggle billing period"></button>
+      <span class="pt-label" id="lbl-annual">Annual</span>
+      <span class="pt-save" id="save-badge" style="display:none;">Save 17%</span>
+    </div>
+    <div class="pricing-grid rev d3">
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">R0 <span>/ forever</span></div>
+        <div class="plan-per">No credit card needed</div>
+        <ul class="plan-features">
+          <li>Store up to 3 documents</li>
+          <li>Biometric lock (Face ID / Touch ID)</li>
+          <li>AES-256 on-device encryption</li>
+          <li>149 countries & document types</li>
+          <li class="locked">Document expiry alerts</li>
+          <li class="locked">Custom nicknames</li>
+          <li class="locked">Pinch-to-zoom</li>
+          <li class="locked">Configurable auto-lock</li>
+          <li class="locked">Clipboard copy (biometric)</li>
+        </ul>
+        <a href="#dl" class="btn-s plan-btn">Get started free</a>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Vault Premium</div>
+        <div class="plan-price" id="price-display">R249.99 <span>/ year</span></div>
+        <div class="plan-per" id="price-per">Less than R21/month</div>
+        <ul class="plan-features">
+          <li>Store up to 10 documents</li>
+          <li>Biometric lock (Face ID / Touch ID)</li>
+          <li>AES-256 on-device encryption</li>
+          <li>149 countries & document types</li>
+          <li>Document expiry alerts</li>
+          <li>Custom document nicknames</li>
+          <li>Pinch-to-zoom on documents</li>
+          <li>Configurable auto-lock timer</li>
+          <li>Clipboard copy (biometric)</li>
+        </ul>
+        <a href="#dl" class="btn-p plan-btn">Upgrade to Premium</a>
+        <div class="plan-annual-note" id="annual-note">Billed annually · cancel anytime</div>
+      </div>
     </div>
   </div>
 </section>
@@ -572,32 +1039,88 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
     <h2 class="sh rev d1">What people are saying</h2>
     <p class="sb rev d2">From estate residents to frequent travellers — Zari Vault is changing how South Africans carry their identity.</p>
     <div class="t-grid">
-      <div class="t-card rev d1">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-quote">"I live in a secure estate and show my ID to security twice a day. Zari Vault cut that from 30 seconds of fumbling to literally 3 seconds. I've never looked back."</div>
-        <div class="t-person"><div class="t-av av1">NM</div><div><div class="t-name">Nomsa Mabunda</div><div class="t-role">Estate Resident, Johannesburg</div></div></div>
-      </div>
-      <div class="t-card rev d2">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-quote">"Got stopped at a roadblock and had every single document — licence, registration, insurance — on screen in under 10 seconds. The officer actually laughed and said 'nice app'."</div>
-        <div class="t-person"><div class="t-av av2">KD</div><div><div class="t-name">Kagiso Dlamini</div><div class="t-role">Sales Executive, Cape Town</div></div></div>
-      </div>
-      <div class="t-card rev d3">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-quote">"As someone who carries documents for multiple family members, the custom nicknames feature alone is worth the Premium upgrade. 'Dad's Medical Aid' has saved us twice already."</div>
-        <div class="t-person"><div class="t-av av3">PM</div><div><div class="t-name">Priya Munsamy</div><div class="t-role">Parent & HR Manager, Durban</div></div></div>
-      </div>
+      <div class="t-card rev d1"><div class="t-stars">★★★★★</div><div class="t-quote">"I live in a secure estate and show my ID to security twice a day. Zari Vault cut that from 30 seconds of fumbling to literally 3 seconds. I've never looked back."</div><div class="t-person"><div class="t-av av1">NM</div><div><div class="t-name">Nomsa Mabunda</div><div class="t-role">Estate Resident, Johannesburg</div></div></div></div>
+      <div class="t-card rev d2"><div class="t-stars">★★★★★</div><div class="t-quote">"Got stopped at a roadblock and had every document — licence, registration, insurance — on screen in under 10 seconds. The officer actually laughed and said 'nice app'."</div><div class="t-person"><div class="t-av av2">KD</div><div><div class="t-name">Kagiso Dlamini</div><div class="t-role">Sales Executive, Cape Town</div></div></div></div>
+      <div class="t-card rev d3"><div class="t-stars">★★★★★</div><div class="t-quote">"The custom nicknames feature alone is worth the Premium upgrade. 'Dad's Medical Aid' has saved us twice already at the pharmacy."</div><div class="t-person"><div class="t-av av3">PM</div><div><div class="t-name">Priya Munsamy</div><div class="t-role">Parent & HR Manager, Durban</div></div></div></div>
     </div>
     <div class="t-row2">
-      <div class="t-card rev d1">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-quote">"I'm an expat living between Nairobi and Cape Town. Zari Vault handles both my Kenyan National ID and my South African work permit without skipping a beat. Finally an app built for people like me."</div>
-        <div class="t-person"><div class="t-av av4">JO</div><div><div class="t-name">James Odhiambo</div><div class="t-role">Software Engineer, Nairobi / Cape Town</div></div></div>
+      <div class="t-card rev d1"><div class="t-stars">★★★★★</div><div class="t-quote">"I'm an expat living between Nairobi and Cape Town. Zari Vault handles my Kenyan National ID and my South African work permit without skipping a beat. Finally an app built for people like me."</div><div class="t-person"><div class="t-av av4">JO</div><div><div class="t-name">James Odhiambo</div><div class="t-role">Software Engineer, Nairobi / Cape Town</div></div></div></div>
+      <div class="t-card rev d2"><div class="t-stars">★★★★★</div><div class="t-quote">"I checked the network traffic myself — Zari Vault genuinely sends zero data externally. Nothing. That's extraordinarily rare, and it's why I tell every person I know to use it."</div><div class="t-person"><div class="t-av av5">TN</div><div><div class="t-name">Thandi Nkosi</div><div class="t-role">Cybersecurity Analyst, Pretoria</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <span class="eyebrow rev">FAQ</span>
+      <h2 class="sh rev d1">Questions we get<br><em>all the time</em></h2>
+      <p class="sb rev d2" style="margin:0 auto;">If your question isn't here, <a href="#contact" style="color:var(--blue-600);text-decoration:underline;">drop us a message</a>.</p>
+    </div>
+    <div class="faq-list rev d1">
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Does Zari Vault work without internet?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — completely. All documents are stored and accessed entirely on your device. No internet connection is required to open, view, or show any document. That's not just a feature; it's a consequence of the zero-cloud architecture.</div></div>
       </div>
-      <div class="t-card rev d2">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-quote">"I'm paranoid about data privacy. I checked the network traffic myself — Zari Vault genuinely sends zero data externally. Nothing. That's extraordinarily rare, and it's why I tell every person I know to use it."</div>
-        <div class="t-person"><div class="t-av av5">TN</div><div><div class="t-name">Thandi Nkosi</div><div class="t-role">Cybersecurity Analyst, Pretoria</div></div></div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What happens to my documents if I lose my phone?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Your documents are protected by your biometrics and AES-256 encryption. Even if someone has your physical phone, they cannot access the vault without your face or fingerprint. The data is not recoverable without authentication — which protects you, but also means documents can't be remotely restored. We recommend keeping original physical documents safe as a backup.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Is a digital copy legally accepted in South Africa?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Zari Vault stores personal copies for reference — not certified legal copies. For most everyday uses (estate access, pharmacies, showing a roadblock officer your details for reference, providing your member number), a phone copy works perfectly. For formal legal or FICA purposes, you'll still need certified originals. Zari Vault labels all stored documents as "Personal Copy" to make this clear.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Can Zari Vault see my documents?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No — and this is not a promise, it's a technical impossibility. Documents are encrypted on your device before being stored, using keys that only your device holds. Nothing is ever transmitted to our servers because we have no servers that receive document data. We have designed the system so that even if we wanted to see your documents, we couldn't.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How is this different from just taking a photo on my phone?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Photos live in your camera roll — unencrypted, accessible to any app that requests photo permissions, and synced to iCloud or Google Photos automatically. Zari Vault stores documents in an encrypted vault, locked by biometrics, with an auto-close timer, and completely isolated from other apps and cloud services. It's a fundamentally different security model.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What is the auto-lock timer and why does it matter?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">When you open a document to show someone, it shouldn't stay on screen indefinitely. The auto-lock timer (30 seconds to 2 minutes, configurable on Premium) closes the document automatically after a set time. This prevents someone from grabbing your unlocked phone after you've shown a document and scrolling through your vault.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How does the free plan differ from Premium?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The free plan stores up to 3 documents with full biometric lock and AES-256 encryption — the core security is identical. Premium (R249.99/year, less than R21/month) unlocks storage for up to 10 documents, expiry alerts, custom nicknames, pinch-to-zoom, configurable auto-lock, and biometric-verified clipboard copy. See the <a href="#pricing">pricing section</a> for a full comparison.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Is Zari Vault POPIA compliant?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes — and by architecture, not just policy. POPIA requires organisations to protect personal information and be transparent about its use. Because Zari Vault never collects, processes, or transmits your personal data to any external system, the compliance is structural. We don't need a privacy policy that covers data handling because there's no data handling to cover.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Which countries and document types are supported?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">149 countries are supported, with document types adapted per country. Your Smart ID in South Africa becomes an Aadhaar Card in India, a National ID in Kenya, and a BRP in the UK. Supported document types include: Smart ID / National ID, Driver's Licence, Passport, Student Card, Vehicle Registration / Licence Disc, Proof of Residence, Medical Aid / Health Insurance Card, and Vehicle Insurance Certificate.</div></div>
       </div>
     </div>
   </div>
@@ -608,7 +1131,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
   <div class="wrap">
     <span class="eyebrow rev">Get In Touch</span>
     <h2 class="sh rev d1">We'd love to <em>hear from you</em></h2>
-    <p class="sb rev d2">Questions, partnerships, media enquiries, or just want to say hello — we respond to every message.</p>
+    <p class="sb rev d2">Questions, partnerships, media enquiries — we respond to every message.</p>
     <div class="ct-grid">
       <div class="rev-l">
         <div class="ct-det"><div class="ct-det-i">📧</div><div><h4>Email</h4><p>hello@zarivault.app<br><span style="font-size:.78rem;color:var(--text-3);">We reply within 24 hours</span></p></div></div>
@@ -616,11 +1139,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
         <div class="ct-det"><div class="ct-det-i">🤝</div><div><h4>Partnerships & Press</h4><p>partnerships@zarivault.app<br><span style="font-size:.78rem;color:var(--text-3);">Media kit available on request</span></p></div></div>
         <div class="ct-det"><div class="ct-det-i">🇿🇦</div><div><h4>Based In</h4><p>Cape Town, South Africa<br><span style="font-size:.78rem;color:var(--text-3);">SAST (UTC+2)</span></p></div></div>
         <div class="ct-soc">
-          <a href="#" class="soc-btn" title="Twitter">𝕏</a>
-          <a href="#" class="soc-btn" title="LinkedIn">in</a>
-          <a href="#" class="soc-btn" title="Instagram">📸</a>
-          <a href="#" class="soc-btn" title="Facebook">f</a>
-          <a href="#" class="soc-btn" title="YouTube">▶</a>
+          <a href="#" class="soc-btn">𝕏</a><a href="#" class="soc-btn">in</a><a href="#" class="soc-btn">📸</a><a href="#" class="soc-btn">f</a><a href="#" class="soc-btn">▶</a>
         </div>
         <div style="margin-top:2rem;background:var(--bg-alt);border:1px solid var(--blue-100);border-radius:var(--r-md);padding:1.25rem;">
           <p style="font-size:.78rem;color:var(--blue-800);font-weight:600;margin-bottom:.35rem;">🔒 Your privacy applies here too</p>
@@ -630,14 +1149,14 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       <div class="ct-form rev-r">
         <div id="ff">
           <div class="fg-row">
-            <div class="fg"><label for="fn">First Name</label><input type="text" id="fn" placeholder="Sipho" required></div>
-            <div class="fg"><label for="ln">Last Name</label><input type="text" id="ln" placeholder="Khumalo" required></div>
+            <div class="fg"><label>First Name</label><input type="text" id="fn" placeholder="Sipho" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" id="ln" placeholder="Khumalo" required></div>
           </div>
-          <div class="fg"><label for="em">Email Address</label><input type="email" id="em" placeholder="sipho@example.co.za" required></div>
-          <div class="fg"><label for="sb2">Subject</label>
+          <div class="fg"><label>Email Address</label><input type="email" id="em" placeholder="sipho@example.co.za" required></div>
+          <div class="fg"><label>Subject</label>
             <select id="sb2"><option value="">Select a topic…</option><option>General question about the app</option><option>Bug report</option><option>Premium billing</option><option>Partnership or press</option><option>Feature request</option><option>Something else</option></select>
           </div>
-          <div class="fg"><label for="msg">Message</label><textarea id="msg" placeholder="Tell us what's on your mind…" required></textarea></div>
+          <div class="fg"><label>Message</label><textarea id="msg" placeholder="Tell us what's on your mind…" required></textarea></div>
           <button type="button" class="btn-p f-sub" onclick="submitForm()">Send Message →</button>
         </div>
         <div class="f-ok" id="fok">
@@ -668,12 +1187,10 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       <div>
         <div class="ft-brand"><div class="ft-brand-i">🔐</div><span class="ft-brand-n">Zari Vault</span></div>
         <p class="ft-tag">Your identity documents secured and instantly accessible. Zero cloud. Zero compromise.</p>
-        <div class="ft-soc">
-          <a href="#" class="ft-s">𝕏</a><a href="#" class="ft-s">in</a><a href="#" class="ft-s">📸</a><a href="#" class="ft-s">f</a>
-        </div>
+        <div class="ft-soc"><a href="#" class="ft-s">𝕏</a><a href="#" class="ft-s">in</a><a href="#" class="ft-s">📸</a><a href="#" class="ft-s">f</a></div>
       </div>
-      <div class="ft-col"><h4>Product</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Features</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#dl">Download</a></li></ul></div>
-      <div class="ft-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Press Kit</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="ft-col"><h4>Product</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#dl">Download</a></li></ul></div>
+      <div class="ft-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Press Kit</a></li></ul></div>
       <div class="ft-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">POPIA Compliance</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
     </div>
     <div class="ft-bot">
@@ -683,13 +1200,42 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
   </div>
 </footer>
 
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
 <script>
-/* Hamburger */
+/* ---- Progress bar ---- */
+function updateProgress(){
+  const s=document.documentElement,h=s.scrollHeight-s.clientHeight;
+  document.getElementById('progress-bar').style.setProperty('--progress-w',(window.scrollY/h*100)+'%');
+  document.getElementById('progress-bar').style.width=(window.scrollY/h*100)+'%';
+}
+window.addEventListener('scroll',updateProgress,{passive:true});
+
+/* ---- Scroll-to-top ---- */
+const scrollBtn=document.getElementById('scroll-top');
+function checkScrollBtn(){scrollBtn.classList.toggle('show',window.scrollY>400);}
+window.addEventListener('scroll',checkScrollBtn,{passive:true});
+
+/* ---- Hamburger ---- */
 const ham=document.getElementById('ham'),nmob=document.getElementById('nmob');
 ham.addEventListener('click',()=>{ham.classList.toggle('open');nmob.classList.toggle('open');});
 nmob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');nmob.classList.remove('open');}));
 
-/* Scroll: navbar + active nav */
+/* ---- Dark mode ---- */
+const themeBtn=document.getElementById('theme-toggle');
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('zv-theme',t);
+  themeBtn.textContent=t==='dark'?'☀️':'🌙';
+}
+const saved=localStorage.getItem('zv-theme')||'light';
+setTheme(saved);
+themeBtn.addEventListener('click',()=>{
+  setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+});
+
+/* ---- Navbar scroll + active nav ---- */
 const navbar=document.getElementById('navbar');
 const navAs=document.querySelectorAll('.nav-links a:not(.nav-cta)');
 const secs=document.querySelectorAll('section[id],div[id]');
@@ -702,12 +1248,38 @@ function onScroll(){
 window.addEventListener('scroll',onScroll,{passive:true});
 onScroll();
 
-/* Reveal */
+/* ---- Reveal on scroll ---- */
 const revEls=document.querySelectorAll('.rev,.rev-l,.rev-r');
-const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.12});
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.1});
 revEls.forEach(el=>ro.observe(el));
 
-/* Phone carousel */
+/* ---- Animated stat counters ---- */
+function animateCounter(el){
+  const target=parseInt(el.dataset.count);
+  const suffix=el.dataset.suffix||'';
+  if(target===0){el.textContent='0'+suffix;return;}
+  let start=0,duration=1800,startTime=null;
+  function step(ts){
+    if(!startTime)startTime=ts;
+    const progress=Math.min((ts-startTime)/duration,1);
+    const ease=1-Math.pow(1-progress,3);
+    el.textContent=Math.round(ease*target)+suffix;
+    if(progress<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const statsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-count]').forEach(animateCounter);
+      statsObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+const statsEl=document.getElementById('stats');
+if(statsEl)statsObs.observe(statsEl);
+
+/* ---- Phone carousel ---- */
 let cur=0,asi;
 function gotoScr(n){
   document.getElementById('sc'+cur).classList.remove('on');
@@ -720,12 +1292,62 @@ function gotoScr(n){
 }
 asi=setInterval(()=>gotoScr((cur+1)%3),3400);
 
-/* Contact form */
+/* ---- Document showcase ---- */
+function showDoc(id,tile){
+  document.querySelectorAll('.doc-tile').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.doc-preview').forEach(p=>p.classList.remove('active'));
+  tile.classList.add('active');
+  const prev=document.getElementById('doc-preview-'+id);
+  if(prev)prev.classList.add('active');
+}
+
+/* ---- Pricing toggle ---- */
+let isAnnual=true;
+function togglePricing(){
+  isAnnual=!isAnnual;
+  const tog=document.getElementById('price-toggle');
+  tog.classList.toggle('annual',isAnnual);
+  tog.classList.toggle('monthly',!isAnnual);
+  document.getElementById('lbl-annual').classList.toggle('active',isAnnual);
+  document.getElementById('lbl-monthly').classList.toggle('active',!isAnnual);
+  document.getElementById('save-badge').style.display=isAnnual?'inline':'none';
+  if(isAnnual){
+    document.getElementById('price-display').innerHTML='R249.99 <span>/ year</span>';
+    document.getElementById('price-per').textContent='Less than R21/month';
+    document.getElementById('annual-note').textContent='Billed annually · cancel anytime';
+  } else {
+    document.getElementById('price-display').innerHTML='R24.99 <span>/ month</span>';
+    document.getElementById('price-per').textContent='Billed monthly';
+    document.getElementById('annual-note').textContent='No lock-in · cancel anytime';
+  }
+}
+
+/* ---- FAQ accordion ---- */
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+/* ---- Contact form ---- */
 function submitForm(){
   if(!document.getElementById('fn').value.trim()||!document.getElementById('em').value.trim()||!document.getElementById('msg').value.trim()){alert('Please fill in your name, email and message.');return;}
   document.getElementById('ff').style.display='none';
   document.getElementById('fok').style.display='block';
 }
+
+/* ---- POPIA banner ---- */
+function dismissBanner(){
+  const b=document.getElementById('popia-banner');
+  b.classList.remove('show');
+  sessionStorage.setItem('zv-banner','dismissed');
+}
+window.addEventListener('load',()=>{
+  if(!sessionStorage.getItem('zv-banner')){
+    setTimeout(()=>document.getElementById('popia-banner').classList.add('show'),1500);
+  }
+});
 </script>
 </body>
 </html>
