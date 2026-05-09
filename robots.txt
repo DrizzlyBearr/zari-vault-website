@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.zarivault.co.za/sitemap.xml
+
+# Block any future admin or API paths
+Disallow: /api/
+Disallow: /admin/
