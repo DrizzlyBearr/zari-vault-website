@@ -706,7 +706,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
 <div id="popia-banner">
   <p class="pb-text"><strong>🔒 A note on privacy:</strong> Zari Vault's website uses no tracking cookies, no analytics, and collects no personal data. This notice exists purely out of good manners, and to walk the talk on POPIA compliance.</p>
   <div class="pb-actions">
-    <button class="pb-btn info" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});dismissBanner();">Learn More</button>
+    <button class="pb-btn info" onclick="window.open('/privacy.html')" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});dismissBanner();">Learn More</button>
     <button class="pb-btn accept" onclick="dismissBanner()">Got it ✓</button>
   </div>
 </div>
@@ -739,7 +739,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
-    <a href="#dl" style="color:var(--blue-700);font-weight:700;">Download Free →</a>
+    <a href="#waitlist" style="color:var(--blue-700);font-weight:700;">Download Free →</a>
   </div>
 </nav>
 
@@ -751,7 +751,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       <h1 class="hero-h1 rev d1">Never get caught<br>without your <em>ID</em><br>again.</h1>
       <p class="hero-sub rev d2">Scan your Smart ID, driver's licence, passport and more. Locked by your face or fingerprint. Show any document in 3 seconds flat. Zero data ever leaves your phone.</p>
       <div class="hero-actions rev d3">
-        <a href="#dl" class="btn-p">📱 Download Free</a>
+        <a href="#waitlist" class="btn-p">📱 Download Free</a>
         <a href="#services" class="btn-s">See All Features →</a>
       </div>
       <div class="hero-trust rev d4">
@@ -1266,7 +1266,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
           <li class="locked">Configurable auto-lock</li>
           <li class="locked">Clipboard copy (biometric)</li>
         </ul>
-        <a href="#dl" class="btn-s plan-btn">Get started free</a>
+        <a href="#waitlist" class="btn-s plan-btn">Get started free</a>
       </div>
       <div class="plan-card featured">
         <div class="plan-badge">Most popular</div>
@@ -1284,7 +1284,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
           <li>Configurable auto-lock timer</li>
           <li>Clipboard copy (biometric)</li>
         </ul>
-        <a href="#dl" class="btn-p plan-btn">Upgrade to Premium</a>
+        <a href="#waitlist" class="btn-p plan-btn">Upgrade to Premium</a>
         <div class="plan-annual-note" id="annual-note">Billed annually · cancel anytime</div>
       </div>
     </div>
@@ -1436,9 +1436,17 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
 <div id="dl">
   <h2 class="rev">Never be caught<br><em>without your ID</em> again.</h2>
   <p class="rev d1">Free to download. First 3 documents free forever. Scan your first document in 30 seconds.</p>
-  <div class="sb-wrap rev d2">
-    <a href="#" class="s-badge"><span class="s-badge-i">🍎</span><div class="s-badge-t"><small>Download on the</small><strong>App Store</strong></div></a>
-    <a href="#" class="s-badge"><span class="s-badge-i">🤖</span><div class="s-badge-t"><small>Get it on</small><strong>Google Play</strong></div></a>
+  <div id="dl-capture" class="rev d2" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;max-width:500px;margin:0 auto 1.25rem;position:relative;z-index:1;">
+    <input type="email" id="dl-email" placeholder="your@email.co.za" onkeydown="if(event.key==='Enter')joinFromDL()" style="flex:1;min-width:220px;padding:.85rem 1.25rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:#fff;font-size:.95rem;font-family:inherit;outline:none;">
+    <button onclick="joinFromDL()" style="background:#ea580c;color:#fff;font-weight:700;font-size:.95rem;padding:.85rem 1.75rem;border-radius:12px;border:none;cursor:pointer;white-space:nowrap;">Notify Me at Launch →</button>
+  </div>
+  <div id="dl-ok" style="display:none;padding:1.25rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;max-width:400px;margin:0 auto 1.25rem;position:relative;z-index:1;">
+    <p style="color:#fff;font-weight:700;font-size:1rem;margin-bottom:.25rem;">🎉 You're on the list!</p>
+    <p style="color:rgba(255,255,255,.7);font-size:.85rem;">We'll email you the moment Zari Vault launches on iOS and Android.</p>
+  </div>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:.45;margin-bottom:1rem;position:relative;z-index:1;">
+    <span class="s-badge" style="cursor:default;"><span class="s-badge-i">🍎</span><div class="s-badge-t"><small>Coming soon to</small><strong>App Store</strong></div></span>
+    <span class="s-badge" style="cursor:default;"><span class="s-badge-i">🤖</span><div class="s-badge-t"><small>Coming soon to</small><strong>Google Play</strong></div></span>
   </div>
   <p class="dl-note rev d3">Free forever · No account required · No data collected · POPIA compliant</p>
 </div>
@@ -1452,19 +1460,19 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
         <p class="ft-tag">Your identity documents secured and instantly accessible. Zero cloud. Zero compromise.</p>
         <div class="ft-soc"><a href="#" class="ft-s">𝕏</a><a href="#" class="ft-s">in</a><a href="#" class="ft-s">📸</a><a href="#" class="ft-s">f</a></div>
       </div>
-      <div class="ft-col"><h4>Product</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#dl">Download</a></li></ul></div>
+      <div class="ft-col"><h4>Product</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#waitlist">Download</a></li></ul></div>
       <div class="ft-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Press Kit</a></li></ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">POPIA Compliance</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
+      <div class="ft-col"><h4>Legal</h4><ul><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">POPIA Compliance</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
     </div>
     <div class="ft-bot">
       <div class="ft-copy">© 2025 Zari Vault. All rights reserved. Made with ❤️ in Cape Town.</div>
-      <div class="ft-leg"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">POPIA</a></div>
+      <div class="ft-leg"><a href="#">Privacy</a><a href="/privacy.html">Terms</a><a href="#">POPIA</a></div>
     </div>
   </div>
 </footer>
 
 <!-- SCROLL TO TOP -->
-<a href="https://wa.me/27000000000?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Zari%20Vault" target="_blank" rel="noopener" id="wa-btn" title="Chat on WhatsApp" style="position:fixed;bottom:5.5rem;right:2rem;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:500;text-decoration:none;transition:transform .2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<a href="https://wa.me/27798002810?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Zari%20Vault" target="_blank" rel="noopener" id="wa-btn" title="Chat on WhatsApp" style="position:fixed;bottom:5.5rem;right:2rem;width:52px;height:52px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:500;text-decoration:none;transition:transform .2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 <button id="scroll-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
 <script>
@@ -1613,7 +1621,16 @@ window.addEventListener('load',()=>{
   }
 });
 
-/* ---- Waitlist ---- */
+/* ---- Launch notification signup ---- */
+function joinFromDL(){
+  var email=document.getElementById('dl-email').value.trim();
+  if(!email||email.indexOf('@')<0){document.getElementById('dl-email').style.borderColor='#ef4444';document.getElementById('dl-email').focus();return;}
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'6575c08e-351a-45cd-bb15-b8097d6c1e9a',subject:'Launch Notification Signup',email:email,message:'Launch notification signup from download CTA'})}).catch(function(){});
+  document.getElementById('dl-capture').style.display='none';
+  document.getElementById('dl-ok').style.display='block';
+  var ep=document.getElementById('ep-email');if(ep)ep.value=email;
+}
+
 function joinWaitlist(){
   var email=document.getElementById('wl-email').value.trim();
   if(!email||email.indexOf('@')<0){document.getElementById('wl-email').style.borderColor='#ef4444';document.getElementById('wl-email').focus();return;}
