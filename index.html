@@ -832,27 +832,71 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
 <!-- ===== WAITLIST ===== -->
 <section id="waitlist" style="background:linear-gradient(135deg,#0f2460 0%,#1e3a8a 55%,#1d4ed8 100%);padding:4.5rem 2rem;position:relative;overflow:hidden;">
   <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(234,88,12,.12);border-radius:50%;pointer-events:none;"></div>
-  <div style="max-width:660px;margin:0 auto;text-align:center;position:relative;">
+  <div style="max-width:760px;margin:0 auto;text-align:center;position:relative;">
     <span style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(234,88,12,.2);border:1px solid rgba(234,88,12,.4);color:#fdba74;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .9rem;border-radius:100px;margin-bottom:1.25rem;">🚀 Early Access Open</span>
-    <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.1;margin-bottom:.85rem;">Be first. Get <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#fdba74;">3 months free</em>.</h2>
-    <p style="font-size:1rem;color:rgba(255,255,255,.72);margin-bottom:2rem;line-height:1.7;">Join the Zari Vault waitlist. Early access members get Premium free for 3 months and help shape the product before public launch.</p>
-    <div id="wl-form" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;max-width:480px;margin:0 auto 1.25rem;">
-      <input type="email" id="wl-email" placeholder="your@email.co.za" onkeydown="if(event.key==='Enter')joinWaitlist()" style="flex:1;min-width:210px;padding:.85rem 1.2rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:.95rem;font-family:inherit;outline:none;">
-      <button onclick="joinWaitlist()" style="background:#ea580c;color:#fff;font-weight:700;font-size:.95rem;padding:.85rem 1.75rem;border-radius:12px;border:none;cursor:pointer;white-space:nowrap;">Join Waitlist →</button>
+    <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.1;margin-bottom:.85rem;">The earlier you join, <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#fdba74;">the more you get.</em></h2>
+    <p style="font-size:1rem;color:rgba(255,255,255,.72);margin-bottom:2.5rem;line-height:1.7;">We are rewarding the people who believe in Zari Vault before anyone else. Three tiers. Limited spots. Once a tier fills, it closes.</p>
+
+    <!-- Tier cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem;text-align:left;">
+
+      <!-- Tier 1 -->
+      <div style="background:rgba(255,255,255,.1);border:1.5px solid rgba(253,186,116,.5);border-radius:16px;padding:1.5rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span style="font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fdba74;">Tier 1</span>
+          <span style="font-size:.68rem;font-weight:700;background:rgba(253,186,116,.2);color:#fdba74;padding:2px 8px;border-radius:100px;border:1px solid rgba(253,186,116,.3);">First 500</span>
+        </div>
+        <p style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:1rem;">Founding Member</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6rem;">
+          <li style="font-size:.8rem;color:rgba(255,255,255,.85);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#fdba74;flex-shrink:0;">✦</span>Lifetime Premium free. Never pay.</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.85);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#fdba74;flex-shrink:0;">✦</span>Founding Member badge in-app</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.85);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#fdba74;flex-shrink:0;">✦</span>Direct input into the product roadmap</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.85);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#fdba74;flex-shrink:0;">✦</span>Name in the app credits</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.85);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:#fdba74;flex-shrink:0;">✦</span>Private founding community access</li>
+        </ul>
+      </div>
+
+      <!-- Tier 2 -->
+      <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:1.5rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span style="font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);">Tier 2</span>
+          <span style="font-size:.68rem;font-weight:700;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:2px 8px;border-radius:100px;border:1px solid rgba(255,255,255,.15);">Next 500</span>
+        </div>
+        <p style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:1rem;">Early Believer</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6rem;">
+          <li style="font-size:.8rem;color:rgba(255,255,255,.75);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.5);flex-shrink:0;">✦</span>12 months Premium free</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.75);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.5);flex-shrink:0;">✦</span>Early access before public launch</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.75);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.5);flex-shrink:0;">✦</span>Beta tester status</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.75);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.5);flex-shrink:0;">✦</span>Priority support forever</li>
+        </ul>
+      </div>
+
+      <!-- Tier 3 -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <span style="font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">Tier 3</span>
+          <span style="font-size:.68rem;font-weight:700;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);padding:2px 8px;border-radius:100px;border:1px solid rgba(255,255,255,.1);">Next 500</span>
+        </div>
+        <p style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:1rem;">Early Supporter</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6rem;">
+          <li style="font-size:.8rem;color:rgba(255,255,255,.6);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.3);flex-shrink:0;">✦</span>6 months Premium free</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.6);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.3);flex-shrink:0;">✦</span>Early access before public launch</li>
+          <li style="font-size:.8rem;color:rgba(255,255,255,.6);display:flex;align-items:flex-start;gap:.5rem;"><span style="color:rgba(255,255,255,.3);flex-shrink:0;">✦</span>Priority support for first year</li>
+        </ul>
+      </div>
     </div>
-    <div id="wl-ok" style="display:none;padding:1.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:16px;max-width:380px;margin:0 auto 1.25rem;">
+
+    <!-- Email capture -->
+    <div id="wl-form" style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;max-width:480px;margin:0 auto 1rem;">
+      <input type="email" id="wl-email" placeholder="your@email.co.za" onkeydown="if(event.key==='Enter')joinWaitlist()" style="flex:1;min-width:210px;padding:.85rem 1.2rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:.95rem;font-family:inherit;outline:none;">
+      <button onclick="joinWaitlist()" style="background:#ea580c;color:#fff;font-weight:700;font-size:.95rem;padding:.85rem 1.75rem;border-radius:12px;border:none;cursor:pointer;white-space:nowrap;">Claim Your Spot →</button>
+    </div>
+    <div id="wl-ok" style="display:none;padding:1.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:16px;max-width:380px;margin:0 auto 1rem;">
       <div style="font-size:2rem;margin-bottom:.4rem;">🎉</div>
       <h3 style="color:#fff;font-weight:800;margin-bottom:.3rem;">You are on the list!</h3>
-      <p style="color:rgba(255,255,255,.7);font-size:.88rem;">We will email you the moment early access opens.</p>
+      <p style="color:rgba(255,255,255,.7);font-size:.88rem;">We will email you when your tier opens for access.</p>
     </div>
     <p style="font-size:.72rem;color:rgba(255,255,255,.38);">No spam. No credit card. Unsubscribe anytime. POPIA compliant.</p>
-    <div style="display:flex;align-items:center;justify-content:center;gap:2.5rem;margin-top:2.25rem;flex-wrap:wrap;">
-      <div style="text-align:center;"><div style="font-size:1.4rem;font-weight:800;color:#fff;">1,200+</div><div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:2px;">on the waitlist</div></div>
-      <div style="width:1px;height:30px;background:rgba(255,255,255,.15);"></div>
-      <div style="text-align:center;"><div style="font-size:1.4rem;font-weight:800;color:#fff;">9 provinces</div><div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:2px;">across SA</div></div>
-      <div style="width:1px;height:30px;background:rgba(255,255,255,.15);"></div>
-      <div style="text-align:center;"><div style="font-size:1.4rem;font-weight:800;color:#fff;">3 months</div><div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:2px;">Premium free</div></div>
-    </div>
   </div>
 </section>
 <section -->
@@ -1304,7 +1348,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
     </div>
     <div class="pricing-toggle rev d2">
       <span class="pt-label active" id="lbl-monthly">Monthly</span>
-      <button class="pt-switch annual" id="price-toggle" onclick="togglePricing()" aria-label="Toggle billing period"></button>
+      <button class="pt-switch annual" id="price-toggle" style="display:none" aria-label="Toggle billing period"></button>
       <span class="pt-label" id="lbl-annual">Annual</span>
       <span class="pt-save" id="save-badge" style="display:none;">Save 17%</span>
     </div>
@@ -1312,7 +1356,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       <div class="plan-card">
         <div class="plan-name">Free</div>
         <div class="plan-price">R0 <span>/ forever</span></div>
-        <div class="plan-per">No credit card needed</div>
+        
         <ul class="plan-features">
           <li>Store up to 3 documents</li>
           <li>Biometric lock (Face ID / Touch ID)</li>
@@ -1330,7 +1374,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
         <div class="plan-badge">Most popular</div>
         <div class="plan-name">Vault Premium</div>
         <div class="plan-price" id="price-display">R249.99 <span>/ year</span></div>
-        <div class="plan-per" id="price-per">Less than R21/month</div>
+        
         <ul class="plan-features">
           <li>Store up to 10 documents</li>
           <li>Biometric lock (Face ID / Touch ID)</li>
