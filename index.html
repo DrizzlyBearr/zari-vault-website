@@ -1235,6 +1235,7 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
           <div class="ab-stat"><div class="ab-stat-n">0</div><div class="ab-stat-l">Servers storing your data</div></div>
           <div class="ab-stat"><div class="ab-stat-n">149</div><div class="ab-stat-l">Countries supported</div></div>
           <div class="ab-stat"><div class="ab-stat-n">AES‑256</div><div class="ab-stat-l">Encryption standard</div></div>
+          <div class="ab-stat"><div class="ab-stat-n">3s</div><div class="ab-stat-l">Average access time</div></div>
         </div>
       </div>
       <div class="rev-r">
@@ -1564,6 +1565,14 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
 <button id="scroll-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+/* ===== Web3Forms endpoint: every contact, waitlist and exit-popup submission posts here =====
+   Web3Forms emails each submission to the inbox that owns this access key.
+   To route inquiries to hello@zarivault.co.za, create the key from a Web3Forms
+   account registered to that address (https://web3forms.com) and paste it below.
+   This is the single source of truth, so all forms stay in sync. */
+const WEB3FORMS_KEY='6575c08e-351a-45cd-bb15-b8097d6c1e9a';
+(function(){var k=document.querySelector('input[name="access_key"]');if(k)k.value=WEB3FORMS_KEY;})();
+
 /* ---- Progress bar ---- */
 function updateProgress(){
   const s=document.documentElement,h=s.scrollHeight-s.clientHeight;
@@ -1692,7 +1701,7 @@ window.addEventListener('load',()=>{
 function joinFromDL(){
   var email=document.getElementById('dl-email').value.trim();
   if(!email||email.indexOf('@')<0){document.getElementById('dl-email').style.borderColor='#ef4444';document.getElementById('dl-email').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'6575c08e-351a-45cd-bb15-b8097d6c1e9a',subject:'Launch Notification Signup',email:email,message:'Launch notification signup from download CTA'})}).catch(function(){});
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Launch Notification Signup',email:email,message:'Launch notification signup from download CTA'})}).catch(function(){});
   document.getElementById('dl-capture').style.display='none';
   document.getElementById('dl-ok').style.display='block';
   var ep=document.getElementById('ep-email');if(ep)ep.value=email;
@@ -1701,7 +1710,7 @@ function joinFromDL(){
 function joinWaitlist(){
   var email=document.getElementById('wl-email').value.trim();
   if(!email||email.indexOf('@')<0){document.getElementById('wl-email').style.borderColor='#ef4444';document.getElementById('wl-email').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'6575c08e-351a-45cd-bb15-b8097d6c1e9a',subject:'New Waitlist Signup',email:email,message:'Waitlist signup'})}).catch(function(){});
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'New Waitlist Signup',email:email,message:'Waitlist signup'})}).catch(function(){});
   document.getElementById('wl-form').style.display='none';
   document.getElementById('wl-ok').style.display='block';
   var ep=document.getElementById('ep-email');if(ep)ep.value=email;
@@ -1713,7 +1722,7 @@ function closeExitPopup(){document.getElementById('exit-popup').style.display='n
 function submitExitPopup(){
   var email=document.getElementById('ep-email').value.trim();
   if(!email||email.indexOf('@')<0){document.getElementById('ep-email').style.borderColor='#ef4444';document.getElementById('ep-email').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'6575c08e-351a-45cd-bb15-b8097d6c1e9a',subject:'Exit Intent Signup',email:email,message:'Exit intent'})}).catch(function(){});
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Exit Intent Signup',email:email,message:'Exit intent'})}).catch(function(){});
   setTimeout(closeExitPopup,3000);
   document.getElementById('exit-popup').querySelector('h3').textContent='You are on the list!';
 }
