@@ -1503,10 +1503,8 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
       </div>
       <div class="ct-form rev-r">
         <form id="ff" onsubmit="handleContactSubmit(event)">
-<input type="hidden" name="access_key" value="6575c08e-351a-45cd-bb15-b8097d6c1e9a">
-<input type="hidden" name="subject" value="Zari Vault Contact">
-<input type="hidden" name="from_name" value="Zari Vault Website">
-<input type="checkbox" name="botcheck" style="display:none;">
+<!-- Honeypot: hidden from real users; bots that fill it are silently dropped server-side -->
+<input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
           <div class="fg-row">
             <div class="fg"><label>First Name</label><input type="text" id="fn" placeholder="Sipho" required></div>
             <div class="fg"><label>Last Name</label><input type="text" id="ln" placeholder="Khumalo" required></div>
@@ -1565,13 +1563,18 @@ footer{background:var(--gray-950);color:rgba(255,255,255,.65);padding:4rem 2rem 
 <button id="scroll-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
-/* ===== Web3Forms endpoint: every contact, waitlist and exit-popup submission posts here =====
-   Web3Forms emails each submission to the inbox that owns this access key.
-   To route inquiries to hello@zarivault.co.za, create the key from a Web3Forms
-   account registered to that address (https://web3forms.com) and paste it below.
-   This is the single source of truth, so all forms stay in sync. */
-const WEB3FORMS_KEY='6575c08e-351a-45cd-bb15-b8097d6c1e9a';
-(function(){var k=document.querySelector('input[name="access_key"]');if(k)k.value=WEB3FORMS_KEY;})();
+/* ===== Submissions =====
+   Every contact / waitlist / exit-popup / download form posts JSON to /api/submit,
+   a Vercel serverless function that stores the record in Supabase (RLS-locked) and
+   emails a notification via Resend. No API keys or database access exist in the
+   browser; the client only ever talks to our own /api/submit endpoint. */
+function postSubmission(data){
+  return fetch('/api/submit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  }).then(function(r){return r.json().catch(function(){return {success:r.ok};});});
+}
 
 /* ---- Progress bar ---- */
 function updateProgress(){
@@ -1697,20 +1700,11 @@ window.addEventListener('load',()=>{
   }
 });
 
-/* ---- Launch notification signup ---- */
-function joinFromDL(){
-  var email=document.getElementById('dl-email').value.trim();
-  if(!email||email.indexOf('@')<0){document.getElementById('dl-email').style.borderColor='#ef4444';document.getElementById('dl-email').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Launch Notification Signup',email:email,message:'Launch notification signup from download CTA'})}).catch(function(){});
-  document.getElementById('dl-capture').style.display='none';
-  document.getElementById('dl-ok').style.display='block';
-  var ep=document.getElementById('ep-email');if(ep)ep.value=email;
-}
-
+/* ---- Waitlist signup ---- */
 function joinWaitlist(){
   var email=document.getElementById('wl-email').value.trim();
   if(!email||email.indexOf('@')<0){document.getElementById('wl-email').style.borderColor='#ef4444';document.getElementById('wl-email').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'New Waitlist Signup',email:email,message:'Waitlist signup'})}).catch(function(){});
+  postSubmission({type:'waitlist',email:email,source:'waitlist section'});
   document.getElementById('wl-form').style.display='none';
   document.getElementById('wl-ok').style.display='block';
   var ep=document.getElementById('ep-email');if(ep)ep.value=email;
@@ -1722,7 +1716,7 @@ function closeExitPopup(){document.getElementById('exit-popup').style.display='n
 function submitExitPopup(){
   var email=document.getElementById('ep-email').value.trim();
   if(!email||email.indexOf('@')<0){document.getElementById('ep-email').style.borderColor='#ef4444';document.getElementById('ep-email').focus();return;}
-  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:WEB3FORMS_KEY,subject:'Exit Intent Signup',email:email,message:'Exit intent'})}).catch(function(){});
+  postSubmission({type:'exit',email:email,source:'exit popup'});
   setTimeout(closeExitPopup,3000);
   document.getElementById('exit-popup').querySelector('h3').textContent='You are on the list!';
 }
@@ -1732,14 +1726,24 @@ function handleContactSubmit(e){
   e.preventDefault();
   var form=document.getElementById('ff');
   var btn=form.querySelector('[type="submit"]');
+  var hp=document.getElementById('botcheck');
+  var payload={
+    type:'contact',
+    firstName:document.getElementById('fn').value.trim(),
+    lastName:document.getElementById('ln').value.trim(),
+    email:document.getElementById('em').value.trim(),
+    subject:document.getElementById('sb2').value,
+    message:document.getElementById('msg').value.trim(),
+    source:'contact form',
+    botcheck:hp&&hp.checked
+  };
   btn.textContent='Sending…';btn.disabled=true;
-  fetch('https://api.web3forms.com/submit',{method:'POST',body:new FormData(form)})
-    .then(function(r){return r.json();})
+  postSubmission(payload)
     .then(function(d){
-      if(d.success){form.style.display='none';document.getElementById('fok').style.display='block';}
-      else{btn.textContent='Send Message';btn.disabled=false;alert('Please email hello@zarivault.co.za');}
+      if(d&&d.success){form.style.display='none';document.getElementById('fok').style.display='block';}
+      else{btn.textContent='Send Message →';btn.disabled=false;alert('Something went wrong. Please email hello@zarivault.co.za');}
     })
-    .catch(function(){btn.textContent='Send Message';btn.disabled=false;alert('Network error. Email hello@zarivault.co.za');});
+    .catch(function(){btn.textContent='Send Message →';btn.disabled=false;alert('Network error. Please email hello@zarivault.co.za');});
 }
 </script>
 
