@@ -6,26 +6,52 @@
 //
 // SECURITY MODEL
 // - Runs server-side only. The browser never sees any secret.
-// - Personal data (name, email, subject, message, source, user agent) is
-//   encrypted with AES-256-GCM BEFORE it is written to Supabase. The key lives
-//   only in Vercel env vars, never in the database. Anyone who bypasses Supabase
-//   RLS (leaked service-role key, DB dump, insider) sees only ciphertext.
-// - The database stores: type, created_at, an HMAC email_hash (for dedupe/lookup
-//   without exposing the address), and the encrypted payload. No plaintext PII.
-// - Fail closed: if the encryption key is missing, we refuse to store.
+// - Personal data is AES-256-GCM encrypted BEFORE it is written to Supabase. The
+//   key lives only in Vercel env vars, never in the database. Anyone who bypasses
+//   Supabase RLS (leaked service-role key, DB dump, insider) sees only ciphertext.
+// - Hardening: origin allowlist, honeypot, disposable-email blocklist, and
+//   per-IP rate limiting (IP stored only as a keyed hash).
+// - Fail closed on encryption; fail open on rate-limit lookups (a limiter outage
+//   must not take the form down).
 //
-// Required environment variables (Vercel -> Project -> Settings -> Environment Variables):
-//   SUPABASE_URL                e.g. https://azaxixarojnjgjgxhsyp.supabase.co
-//   SUPABASE_SERVICE_ROLE_KEY   Supabase -> Project Settings -> API -> service_role (secret)
-//   SUBMISSIONS_ENC_KEY         base64 of 32 random bytes: `openssl rand -base64 32`
-//   RESEND_API_KEY              Resend -> API Keys
-//   INQUIRY_TO_EMAIL            where notifications are sent, e.g. hello@zarivault.co.za
-//   INQUIRY_FROM_EMAIL          verified Resend sender, e.g. "Zari Vault <noreply@zarivault.co.za>"
+// Required env vars (Vercel -> Project -> Settings -> Environment Variables):
+//   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUBMISSIONS_ENC_KEY,
+//   RESEND_API_KEY, INQUIRY_TO_EMAIL, INQUIRY_FROM_EMAIL
 
 const crypto = require('crypto');
 
 const ALLOWED_TYPES = ['contact', 'waitlist', 'exit', 'download'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Per-IP cap across all submission types, per rolling hour.
+const RATE_LIMIT_MAX = 6;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+
+// Hosts allowed to call this endpoint (production + Vercel previews + local dev).
+function originAllowed(origin) {
+  if (!origin) return true; // lenient if the header is absent
+  try {
+    const h = new URL(origin).hostname;
+    return (
+      h === 'zarivault.co.za' ||
+      h === 'www.zarivault.co.za' ||
+      h.endsWith('.vercel.app') ||
+      h === 'localhost' ||
+      h === '127.0.0.1'
+    );
+  } catch (_) {
+    return false;
+  }
+}
+
+// Common throwaway/temp email providers.
+const DISPOSABLE_DOMAINS = new Set([
+  'mailinator.com', 'guerrillamail.com', 'guerrillamail.info', '10minutemail.com',
+  'tempmail.com', 'temp-mail.org', 'trashmail.com', 'yopmail.com', 'sharklasers.com',
+  'getnada.com', 'nada.email', 'dispostable.com', 'maildrop.cc', 'throwawaymail.com',
+  'fakeinbox.com', 'mailnesia.com', 'mvrht.com', 'emailondeck.com', 'moakt.com',
+  'mintemail.com', 'spamgourmet.com', 'mohmal.com', 'tempr.email', 'discard.email',
+]);
 
 function clip(value, max) {
   if (value == null) return null;
@@ -40,8 +66,6 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-// Derive independent encryption + MAC keys from the single master secret so we
-// never reuse the raw key directly for two purposes.
 function deriveKeys(masterB64) {
   const master = Buffer.from(masterB64, 'base64');
   if (master.length < 32) throw new Error('SUBMISSIONS_ENC_KEY must be >= 32 bytes (base64)');
@@ -56,18 +80,62 @@ function encryptPayload(obj, encKey) {
   const cipher = crypto.createCipheriv('aes-256-gcm', encKey, iv);
   const pt = Buffer.from(JSON.stringify(obj), 'utf8');
   const ct = Buffer.concat([cipher.update(pt), cipher.final()]);
-  const tag = cipher.getAuthTag();
-  return Buffer.concat([iv, tag, ct]).toString('base64');
+  return Buffer.concat([iv, cipher.getAuthTag(), ct]).toString('base64');
 }
 
-function hashEmail(email, macKey) {
-  return crypto.createHmac('sha256', macKey).update(email.trim().toLowerCase()).digest('hex');
+function hmac(value, macKey) {
+  return crypto.createHmac('sha256', macKey).update(value).digest('hex');
+}
+
+function clientIp(req) {
+  const xff = req.headers['x-forwarded-for'];
+  if (xff) return String(xff).split(',')[0].trim();
+  return req.headers['x-real-ip'] || (req.socket && req.socket.remoteAddress) || '';
+}
+
+// Returns true if the IP is over its hourly cap. Fails open (returns false) on error.
+async function isRateLimited(baseUrl, serviceRole, ipHash) {
+  try {
+    const since = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+    const url = `${baseUrl}/rest/v1/rate_limits?select=id&ip_hash=eq.${ipHash}&created_at=gte.${encodeURIComponent(since)}`;
+    const r = await fetch(url, {
+      headers: { apikey: serviceRole, Authorization: `Bearer ${serviceRole}`, Prefer: 'count=exact' },
+    });
+    if (!r.ok) return false;
+    // Prefer count=exact returns the count in the Content-Range header: "0-4/5".
+    const range = r.headers.get('content-range');
+    let count = NaN;
+    if (range && range.includes('/')) count = parseInt(range.split('/')[1], 10);
+    if (Number.isNaN(count)) { const rows = await r.json(); count = Array.isArray(rows) ? rows.length : 0; }
+    return count >= RATE_LIMIT_MAX;
+  } catch (_) {
+    return false;
+  }
+}
+
+async function recordAttempt(baseUrl, serviceRole, ipHash, action) {
+  try {
+    await fetch(`${baseUrl}/rest/v1/rate_limits`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: serviceRole,
+        Authorization: `Bearer ${serviceRole}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ ip_hash: ipHash, action }),
+    });
+  } catch (_) { /* best-effort */ }
 }
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ success: false, error: 'Method not allowed' });
+  }
+
+  if (!originAllowed(req.headers.origin)) {
+    return res.status(403).json({ success: false, error: 'Forbidden' });
   }
 
   let body = req.body;
@@ -85,8 +153,10 @@ module.exports = async (req, res) => {
   if (!email || !EMAIL_RE.test(email)) {
     return res.status(400).json({ success: false, error: 'A valid email is required' });
   }
+  if (DISPOSABLE_DOMAINS.has(email.split('@')[1].toLowerCase())) {
+    return res.status(400).json({ success: false, error: 'Please use a permanent email address' });
+  }
 
-  // Personal data that will be encrypted before storage.
   const personal = {
     email,
     firstName: clip(body.firstName, 100),
@@ -109,17 +179,30 @@ module.exports = async (req, res) => {
     return res.status(500).json({ success: false, error: 'Server not configured' });
   }
 
-  // Encrypt before storage. Fail closed if anything is wrong with the key.
+  // Derive keys (fail closed).
+  let encKey, macKey;
+  try {
+    ({ encKey, macKey } = deriveKeys(ENC_KEY_B64));
+  } catch (err) {
+    console.error('Encryption key error:', err.message);
+    return res.status(500).json({ success: false, error: 'Server not configured' });
+  }
+
+  // Per-IP rate limit (fails open on lookup error).
+  const ipHash = hmac(clientIp(req) || 'unknown', macKey);
+  if (await isRateLimited(SUPABASE_URL, SERVICE_ROLE, ipHash)) {
+    return res.status(429).json({ success: false, error: 'Too many submissions. Please try again later.' });
+  }
+
+  // Encrypt then store (fail closed).
   let row;
   try {
-    const { encKey, macKey } = deriveKeys(ENC_KEY_B64);
-    row = { type, email_hash: hashEmail(email, macKey), payload: encryptPayload(personal, encKey) };
+    row = { type, email_hash: hmac(email.toLowerCase(), macKey), payload: encryptPayload(personal, encKey) };
   } catch (err) {
     console.error('Encryption error:', err.message);
     return res.status(500).json({ success: false, error: 'Server not configured' });
   }
 
-  // 1) Store encrypted record in Supabase (source of truth).
   try {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/submissions`, {
       method: 'POST',
@@ -140,16 +223,15 @@ module.exports = async (req, res) => {
     return res.status(502).json({ success: false, error: 'Could not save submission' });
   }
 
-  // 2) Email notification via Resend (best-effort; the record is already saved).
+  // Record the attempt for rate limiting (best-effort, after a successful store).
+  await recordAttempt(SUPABASE_URL, SERVICE_ROLE, ipHash, type);
+
+  // Email notification via Resend (best-effort; the record is already saved).
   if (RESEND_API_KEY && TO && FROM) {
     const name = [personal.firstName, personal.lastName].filter(Boolean).join(' ') || '(no name given)';
     const lines = [
-      ['Type', type],
-      ['Email', email],
-      ['Name', name],
-      ['Subject', personal.subject],
-      ['Source', personal.source],
-      ['Message', personal.message],
+      ['Type', type], ['Email', email], ['Name', name],
+      ['Subject', personal.subject], ['Source', personal.source], ['Message', personal.message],
     ].filter(([, v]) => v);
     const html =
       `<h2>New ${escapeHtml(type)} submission</h2>` +
@@ -164,9 +246,7 @@ module.exports = async (req, res) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${RESEND_API_KEY}` },
         body: JSON.stringify({
-          from: FROM,
-          to: [TO],
-          reply_to: email,
+          from: FROM, to: [TO], reply_to: email,
           subject: `Zari Vault: new ${type}${personal.subject ? ': ' + personal.subject : ''}`,
           html,
         }),
