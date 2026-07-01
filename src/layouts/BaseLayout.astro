@@ -1,0 +1,16 @@
+---
+// Shared HTML shell. Page-specific head tags (title, meta, OG, JSON-LD, fonts)
+// and styles are supplied by each page: the "head" named slot for head tags,
+// the default slot for the body. Each page imports its own stylesheet.
+---
+<!DOCTYPE html>
+<html lang="en-ZA" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<slot name="head" />
+</head>
+<body>
+<slot />
+</body>
+</html>
