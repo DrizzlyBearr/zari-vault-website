@@ -1,0 +1,8 @@
+# Internal docs, database migrations and tooling.
+# Excluded from the Vercel deployment so they are never served publicly
+# (e.g. https://www.zarivault.co.za/SETUP.md). The /api functions and the
+# static site files (index.html, privacy.html, assets) are NOT matched here.
+*.md
+/supabase
+/scripts
+.claude
