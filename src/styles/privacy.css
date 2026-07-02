@@ -1,0 +1,29 @@
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f0f4ff;color:#111827;line-height:1.75;}
+a{color:#1e3a8a;text-decoration:none;}
+a:hover{text-decoration:underline;}
+nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid #e5e7eb;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+.brand{display:flex;align-items:center;gap:.6rem;font-size:1.1rem;font-weight:800;color:#1e3a8a;}
+.brand-icon{width:34px;height:34px;background:#1e3a8a;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.back{font-size:.85rem;font-weight:600;color:#6b7280;padding:.4rem .85rem;border:1px solid #e5e7eb;border-radius:8px;transition:background .2s;}
+.back:hover{background:#f0f4ff;text-decoration:none;}
+.wrap{max-width:760px;margin:0 auto;padding:3.5rem 2rem 5rem;}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:#eff6ff;border:1px solid #dbeafe;color:#1d4ed8;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .85rem;border-radius:100px;margin-bottom:1.25rem;}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;color:#0f2460;line-height:1.1;margin-bottom:.75rem;}
+.meta{font-size:.85rem;color:#6b7280;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid #e5e7eb;}
+.toc{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.5rem 2rem;margin-bottom:2.5rem;}
+.toc h3{font-size:.85rem;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.85rem;}
+.toc ol{padding-left:1.25rem;display:flex;flex-direction:column;gap:.35rem;}
+.toc ol li a{font-size:.88rem;color:#1e3a8a;}
+.highlight{background:#eff6ff;border:1px solid #dbeafe;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:.9rem;color:#1e3a8a;font-weight:600;}
+h2{font-size:1.25rem;font-weight:800;color:#0f2460;margin:2.5rem 0 .85rem;padding-top:.5rem;}
+h3{font-size:1rem;font-weight:700;color:#1e3a8a;margin:1.5rem 0 .5rem;}
+p{font-size:.95rem;color:#374151;margin-bottom:1rem;}
+ul,ol{padding-left:1.5rem;margin-bottom:1rem;}
+ul li,ol li{font-size:.95rem;color:#374151;margin-bottom:.4rem;}
+.section{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1.75rem 2rem;margin-bottom:1.25rem;}
+.contact-box{background:#0f2460;border-radius:16px;padding:2rem;color:#fff;margin-top:2.5rem;text-align:center;}
+.contact-box h3{color:#fff;font-size:1.1rem;margin-bottom:.5rem;}
+.contact-box p{color:rgba(255,255,255,.75);font-size:.88rem;margin-bottom:1rem;}
+.contact-box a{color:#fdba74;font-weight:700;}
+footer-note{display:block;text-align:center;font-size:.78rem;color:#9ca3af;margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e5e7eb;}

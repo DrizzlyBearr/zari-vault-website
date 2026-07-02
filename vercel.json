@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true }
+  ],
+  "crons": [
+    { "path": "/api/keepalive", "schedule": "0 6 * * *" }
+  ]
+}

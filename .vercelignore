@@ -1,8 +1,12 @@
-# Internal docs, database migrations and tooling.
-# Excluded from the Vercel deployment so they are never served publicly
-# (e.g. https://www.zarivault.co.za/SETUP.md). The /api functions and the
-# static site files (index.html, privacy.html, assets) are NOT matched here.
-*.md
+# Internal docs, database migrations and tooling - not needed by the Astro build.
+# (With the Astro framework build, Vercel serves only the built `dist/` output,
+# so repo-root docs are not public anyway; this just keeps the build context lean.)
+# NOTE: do not use a blanket `*.md` here - blog posts live in src/content as .md.
+/docs
 /supabase
 /scripts
+/css
+/js
+SETUP.md
+README.md
 .claude
