@@ -167,12 +167,14 @@ module.exports = async (req, res) => {
     userAgent: clip(req.headers['user-agent'], 500),
   };
 
-  const SUPABASE_URL = process.env.SUPABASE_URL;
+  // Public, non-secret values default here so only the three real secrets
+  // (service role, encryption key, Resend key) need to be set in Vercel.
+  const SUPABASE_URL = process.env.SUPABASE_URL || 'https://azaxixarojnjgjgxhsyp.supabase.co';
   const SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const ENC_KEY_B64 = process.env.SUBMISSIONS_ENC_KEY;
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
-  const TO = process.env.INQUIRY_TO_EMAIL;
-  const FROM = process.env.INQUIRY_FROM_EMAIL;
+  const TO = process.env.INQUIRY_TO_EMAIL || 'hello@zarivault.co.za';
+  const FROM = process.env.INQUIRY_FROM_EMAIL || 'Zari Vault <noreply@zarivault.co.za>';
 
   if (!SUPABASE_URL || !SERVICE_ROLE || !ENC_KEY_B64) {
     console.error('Missing required env vars (Supabase URL / service role / encryption key)');

@@ -26,16 +26,18 @@ function [`api/submit.js`](api/submit.js). That function:
 ## Required Vercel environment variables
 
 Set these in **Vercel → Project → Settings → Environment Variables** (Production +
-Preview). None of these belong in the repo.
+Preview). None of these belong in the repo. Only the three secrets are required;
+the public values (Supabase URL, to/from addresses) have safe defaults baked into
+`api/submit.js` and only need env vars if you want to override them.
 
-| Variable | Where to get it | Example |
+| Variable | Required | Where to get it |
 | --- | --- | --- |
-| `SUPABASE_URL` | Supabase → Project Settings → API → Project URL | `https://azaxixarojnjgjgxhsyp.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API → `service_role` (secret) | `eyJ...` |
-| `SUBMISSIONS_ENC_KEY` | Generate yourself (see below) | base64 of 32 bytes |
-| `RESEND_API_KEY` | Resend → API Keys | `re_...` |
-| `INQUIRY_TO_EMAIL` | Inbox that receives notifications | `hello@zarivault.co.za` |
-| `INQUIRY_FROM_EMAIL` | Verified Resend sender on your domain | `Zari Vault <noreply@zarivault.co.za>` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase → Project Settings → API → `service_role` (secret) |
+| `SUBMISSIONS_ENC_KEY` | Yes | Generate yourself (see below) |
+| `RESEND_API_KEY` | Yes | Resend → API Keys |
+| `SUPABASE_URL` | No (defaults to the zari-vault project URL) | Supabase → Project Settings → API |
+| `INQUIRY_TO_EMAIL` | No (defaults to `hello@zarivault.co.za`) | Inbox that receives notifications |
+| `INQUIRY_FROM_EMAIL` | No (defaults to `Zari Vault <noreply@zarivault.co.za>`) | Verified Resend sender on your domain |
 
 After adding/changing env vars, redeploy for them to take effect.
 
