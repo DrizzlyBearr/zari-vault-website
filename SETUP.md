@@ -71,8 +71,8 @@ Supabase** (nothing is lost); only the email notification is skipped.
 
 Two ways:
 
-1. **Email** — the plaintext notification lands in `INQUIRY_TO_EMAIL`.
-2. **Decrypt locally** — the database is ciphertext, so use the helper script.
+1. **Email** - the plaintext notification lands in `INQUIRY_TO_EMAIL`.
+2. **Decrypt locally** - the database is ciphertext, so use the helper script.
    The key stays on your machine:
 
    ```sh
@@ -87,5 +87,5 @@ Browsing the Supabase Table Editor directly will only show encrypted blobs, by d
 ## Database schema
 
 See [`supabase/migrations/`](supabase/migrations/):
-- `0001_create_submissions.sql` — initial table + RLS.
-- `0002_encrypt_submissions.sql` — switch to encrypted-at-rest storage.
+- `0001_create_submissions.sql` - initial table + RLS.
+- `0002_encrypt_submissions.sql` - switch to encrypted-at-rest storage.
