@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const canonical = 'https://www.zarivault.co.za/blog';
+const fmt = (d: Date) => d.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Zari Vault Blog',
+    description: 'Practical guides to South African identity documents, Home Affairs processes and keeping your documents safe.',
+    url: canonical,
+    publisher: { '@type': 'Organization', name: 'Zari Vault', url: 'https://www.zarivault.co.za' },
+  },
+];
+---
+<BlogLayout
+  title="Zari Vault Blog: South African identity documents, made simple"
+  description="Practical, plain-language guides to South African identity documents, Home Affairs processes, FICA, roadblocks and keeping your documents safe."
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <section class="bl-hero">
+    <span class="bl-eyebrow">Zari Vault Blog</span>
+    <h1 class="bl-h1">Your documents, <em>demystified</em></h1>
+    <p class="bl-lead">Straightforward guides to South African identity documents, Home Affairs processes and how to keep your most important papers safe and always on hand.</p>
+  </section>
+
+  {posts.length === 0 ? (
+    <p class="bl-lead">New guides are on the way. Check back soon.</p>
+  ) : (
+    <ul class="bl-list">
+      {posts.map((post) => (
+        <li>
+          <a class="bl-card" href={`/blog/${post.slug}`}>
+            <div class="bl-card-meta">{fmt(post.data.publishDate)}</div>
+            <div class="bl-card-title">{post.data.title}</div>
+            <p class="bl-card-desc">{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="bl-tags">{post.data.tags.map((t) => <span class="bl-tag">{t}</span>)}</div>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</BlogLayout>
