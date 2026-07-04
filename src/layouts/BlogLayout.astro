@@ -1,0 +1,93 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '../styles/global.css';
+import '../styles/blog.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogType?: string;
+  jsonLd?: Record<string, unknown>[];
+}
+const { title, description, canonical, ogType = 'website', jsonLd = [] } = Astro.props;
+const year = new Date().getFullYear();
+---
+<BaseLayout>
+<Fragment slot="head">
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="en-ZA" href={canonical} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="https://www.zarivault.co.za/og-image.png" />
+  <meta property="og:site_name" content="Zari Vault" />
+  <meta property="og:locale" content="en_ZA" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://www.zarivault.co.za/og-image.png" />
+  <meta name="theme-color" content="#1e3a8a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e3a8a'/><text y='.9em' font-size='64' x='50%25' text-anchor='middle'>🔐</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=optional" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" /></noscript>
+  {jsonLd.map((obj) => <script type="application/ld+json" is:inline set:html={JSON.stringify(obj)} />)}
+  <script is:inline>
+    // Set theme before paint to avoid a flash (shared with the main site).
+    try { document.documentElement.setAttribute('data-theme', localStorage.getItem('zv-theme') || 'light'); } catch (e) {}
+  </script>
+</Fragment>
+
+<header class="bl-nav">
+  <div class="bl-nav-in">
+    <a href="/" class="bl-brand"><span class="bl-brand-i">🔐</span><span class="bl-brand-n">Zari Vault</span></a>
+    <nav class="bl-links">
+      <a href="/#services">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/blog" class="bl-active">Blog</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+    <div class="bl-nav-right">
+      <button class="theme-toggle" id="bl-theme" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <a href="/#waitlist" class="btn-p bl-cta">Download Free</a>
+    </div>
+  </div>
+</header>
+
+<main class="bl-main">
+  <slot />
+</main>
+
+<footer class="bl-foot">
+  <div class="bl-foot-in">
+    <a href="/" class="bl-brand"><span class="bl-brand-i">🔐</span><span class="bl-brand-n">Zari Vault</span></a>
+    <p>Your identity documents, secured and instantly accessible. Zero cloud. Zero compromise.</p>
+    <div class="bl-foot-links">
+      <a href="/">Home</a><a href="/#services">Features</a><a href="/#pricing">Pricing</a>
+      <a href="/blog">Blog</a><a href="/#faq">FAQ</a><a href="/privacy">Privacy</a>
+    </div>
+    <p class="bl-foot-copy">© {year} ZINKULU (PTY) LTD, trading as Zari Vault. Made in Cape Town.</p>
+  </div>
+</footer>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('bl-theme');
+    function sync() { btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙'; }
+    sync();
+    btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('zv-theme', next); } catch (e) {}
+      sync();
+    });
+  })();
+</script>
+</BaseLayout>
