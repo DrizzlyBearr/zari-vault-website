@@ -1,0 +1,49 @@
+---
+import { countries, regions } from '../../data/countries';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+const canonical = 'https://www.zarivault.co.za/vault';
+const byRegion = regions.map((r) => ({
+  region: r,
+  items: countries.filter((c) => c.region === r).sort((a, b) => a.name.replace(/^the /, '').localeCompare(b.name.replace(/^the /, ''))),
+})).filter((g) => g.items.length > 0);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Zari Vault by country',
+    description: 'Store your identity documents securely in 149 countries. Zari Vault adapts to local document types.',
+    url: canonical,
+    isPartOf: { '@type': 'WebSite', name: 'Zari Vault', url: 'https://www.zarivault.co.za' },
+  },
+];
+---
+<BlogLayout
+  title="Zari Vault by country: secure document storage in 149 countries"
+  description="Zari Vault keeps your identity documents encrypted on your own phone, adapting to local document types across 149 countries. Find your country."
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <section class="bl-hero">
+    <span class="bl-eyebrow">Supported countries</span>
+    <h1 class="bl-h1">Your documents, <em>wherever you are</em></h1>
+    <p class="bl-lead">Zari Vault adapts to local document types across 149 countries, from the Smart ID in South Africa to Aadhaar in India and the Emirates ID in the UAE. Find your country below.</p>
+  </section>
+
+  {byRegion.map((g) => (
+    <section style="margin-bottom:2.5rem;">
+      <h2 style="font-size:1.1rem;font-weight:800;color:var(--blue-800);margin-bottom:1rem;letter-spacing:-.01em;">{g.region}</h2>
+      <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem;">
+        {g.items.map((c) => (
+          <li><a class="bl-card" style="padding:.85rem 1.1rem;" href={`/vault/${c.slug}`}>
+            <span style="font-weight:600;color:var(--blue-900);">{c.name.replace(/^the /, '')}</span>
+            <span style="display:block;font-size:.75rem;color:var(--text-3);margin-top:2px;">{c.idName}</span>
+          </a></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <p class="bl-lead" style="font-size:.9rem;">More countries are being added. Zari Vault supports 149 in total; the list above covers the primary document in each. <a href="/#dl">Download Zari Vault free</a> to get started in yours.</p>
+</BlogLayout>

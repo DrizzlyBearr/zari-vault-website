@@ -1,0 +1,82 @@
+---
+import { countries } from '../../data/countries';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+export async function getStaticPaths() {
+  return countries.map((c) => ({ params: { country: c.slug }, props: { c } }));
+}
+
+const { c } = Astro.props;
+const canonical = `https://www.zarivault.co.za/vault/${c.slug}`;
+const title = `Store your ${c.name.replace(/^the /, '')} documents securely | Zari Vault`;
+const description = `Keep your ${c.idName}, passport, driver's licence and more encrypted on your own phone in ${c.name}. AES-256, never uploaded. Free for your first 4 documents.`;
+
+const docTypes = [
+  { icon: '🪪', name: c.idName, sub: 'Primary identity document' },
+  { icon: '🛂', name: 'Passport', sub: 'Travel document' },
+  { icon: '🚗', name: "Driver's licence", sub: 'Motor vehicle' },
+  { icon: '📄', name: 'Vehicle registration', sub: 'Licence / disc' },
+  { icon: '🏥', name: 'Medical / health card', sub: 'Insurance or aid' },
+  { icon: '🎓', name: 'Student card', sub: 'Academic access' },
+  { icon: '🏠', name: 'Proof of address', sub: 'Residence' },
+  { icon: '🛡️', name: 'Insurance certificate', sub: 'Vehicle / other' },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: canonical,
+    inLanguage: 'en',
+    isPartOf: { '@type': 'WebSite', name: 'Zari Vault', url: 'https://www.zarivault.co.za' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.zarivault.co.za/' },
+      { '@type': 'ListItem', position: 2, name: 'Countries', item: 'https://www.zarivault.co.za/vault' },
+      { '@type': 'ListItem', position: 3, name: c.name.replace(/^the /, ''), item: canonical },
+    ],
+  },
+];
+---
+<BlogLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd}>
+  <article>
+    <div class="bl-article-head">
+      <div class="bl-crumbs"><a href="/">Home</a> / <a href="/vault">Countries</a> / {c.name.replace(/^the /, '')}</div>
+      <h1>Your {c.name.replace(/^the /, '')} documents, secured on your phone</h1>
+      <div class="bl-article-meta">{c.region} · One of 149 countries supported</div>
+    </div>
+
+    <div class="bl-prose">
+      <p>Zari Vault keeps your {c.idName}, passport, driver's licence and other important documents encrypted on your own phone in {c.name}. Your documents are never uploaded, and there is no server that receives them. You just keep a secure personal copy, locked behind your fingerprint, for the everyday moments when you need to show or quote your details.</p>
+
+      <h2>Documents you can store in {c.name.replace(/^the /, '')}</h2>
+      <p>Zari Vault adapts to local document types. In {c.name}, that includes:</p>
+      <ul>
+        {docTypes.map((d) => <li><strong>{d.name}</strong>: {d.sub}</li>)}
+      </ul>
+
+      <h2>Private by design</h2>
+      <p>Every document is encrypted at rest with AES-256, and the key is held in your phone's secure Keychain or Keystore. Nothing is uploaded to a server. There is no account to create and no cloud copy to breach. If you choose to share a document, you export exactly what you need as an encrypted PDF stamped with its purpose and date.</p>
+
+      <h2>Keep your documents valid, wherever you are</h2>
+      <p>Beyond storage, Zari Vault reminds you before your ID, passport, licence or other documents expire, so a deadline never catches you out. For travellers, it tracks passport validity and visa rules. Premium adds unlimited documents and tools for renewals, travel, medical information and purpose-built share packs.</p>
+
+      <p>Zari Vault stores personal copies for your own reference. It is not a replacement for your official documents and is not affiliated with any government body. Always carry your originals where they are required.</p>
+
+      <div class="bl-cta-box">
+        <h3>Get Zari Vault free in {c.name.replace(/^the /, '')}</h3>
+        <p>Your first 4 documents are free, forever. Encrypted on your phone, never uploaded.</p>
+        <a href="/#dl" class="btn-p">Download Free</a>
+      </div>
+
+      <p style="font-size:.9rem;">New to document admin? Start with our <a href="/blog/south-african-identity-documents-guide">complete guide to identity documents</a>, or see <a href="/blog/how-to-keep-your-identity-documents-safe">how to keep your documents safe</a>.</p>
+    </div>
+
+    <a class="bl-back" href="/vault">← All countries</a>
+  </article>
+</BlogLayout>
