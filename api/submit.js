@@ -66,6 +66,39 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
+// Branded, email-client-safe notification (inline styles, table layout).
+// Returns both an HTML and a plain-text part for deliverability.
+function buildNotificationEmail(type, lines, replyEmail) {
+  const rows = lines.map(([k, v]) =>
+    `<tr>` +
+    `<td style="padding:11px 16px;border-bottom:1px solid #eef1f6;color:#64748b;font-size:13px;font-weight:600;vertical-align:top;width:116px;">${escapeHtml(k)}</td>` +
+    `<td style="padding:11px 16px;border-bottom:1px solid #eef1f6;color:#0f172a;font-size:14px;white-space:pre-wrap;word-break:break-word;">${escapeHtml(v)}</td>` +
+    `</tr>`
+  ).join('');
+
+  const html =
+    `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>` +
+    `<body style="margin:0;padding:0;background:#f1f5f9;">` +
+    `<div style="display:none;max-height:0;overflow:hidden;opacity:0;">New ${escapeHtml(type)} submission from the Zari Vault website.</div>` +
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:24px 12px;"><tr><td align="center">` +
+    `<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;box-shadow:0 1px 4px rgba(15,23,42,.08);">` +
+    `<tr><td style="background:#1e3a8a;padding:22px 28px;"><span style="font-size:18px;font-weight:800;color:#ffffff;letter-spacing:-.02em;">🔐 Zari Vault</span><span style="display:block;color:#bfdbfe;font-size:12px;margin-top:3px;">New website ${escapeHtml(type)} submission</span></td></tr>` +
+    `<tr><td style="padding:26px 28px 8px;"><h1 style="margin:0 0 4px;font-size:18px;color:#0f172a;font-weight:800;">You have a new ${escapeHtml(type)} submission</h1><p style="margin:0 0 18px;color:#64748b;font-size:13px;">Submitted via zarivault.co.za</p>` +
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eef1f6;border-radius:10px;overflow:hidden;">${rows}</table></td></tr>` +
+    `<tr><td style="padding:18px 28px 26px;"><a href="mailto:${escapeHtml(replyEmail)}" style="display:inline-block;background:#ea580c;color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;">Reply to sender</a></td></tr>` +
+    `<tr><td style="background:#f8fafc;padding:16px 28px;border-top:1px solid #eef1f6;"><p style="margin:0;color:#94a3b8;font-size:12px;line-height:1.6;">An encrypted copy of this submission is stored securely. This email was generated automatically by the Zari Vault website; reply directly to respond to the sender.</p></td></tr>` +
+    `</table><p style="color:#cbd5e1;font-size:11px;margin:16px 0 0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">&copy; Zari Vault &middot; ZINKULU (PTY) LTD</p>` +
+    `</td></tr></table></body></html>`;
+
+  const text =
+    `New ${type} submission on Zari Vault\n` +
+    `Submitted via zarivault.co.za\n\n` +
+    lines.map(([k, v]) => `${k}: ${v}`).join('\n') +
+    `\n\nReply to this email to respond to the sender (${replyEmail}).`;
+
+  return { html, text };
+}
+
 function deriveKeys(masterB64) {
   const master = Buffer.from(masterB64, 'base64');
   if (master.length < 32) throw new Error('SUBMISSIONS_ENC_KEY must be >= 32 bytes (base64)');
@@ -235,14 +268,7 @@ module.exports = async (req, res) => {
       ['Type', type], ['Email', email], ['Name', name],
       ['Subject', personal.subject], ['Source', personal.source], ['Message', personal.message],
     ].filter(([, v]) => v);
-    const html =
-      `<h2>New ${escapeHtml(type)} submission</h2>` +
-      '<table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;">' +
-      lines.map(([k, v]) =>
-        `<tr><td style="padding:4px 12px 4px 0;color:#666;vertical-align:top;"><strong>${escapeHtml(k)}</strong></td>` +
-        `<td style="padding:4px 0;white-space:pre-wrap;">${escapeHtml(v)}</td></tr>`
-      ).join('') +
-      '</table>';
+    const { html, text } = buildNotificationEmail(type, lines, email);
     try {
       const r = await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -250,7 +276,7 @@ module.exports = async (req, res) => {
         body: JSON.stringify({
           from: FROM, to: [TO], reply_to: email,
           subject: `Zari Vault: new ${type}${personal.subject ? ': ' + personal.subject : ''}`,
-          html,
+          html, text,
         }),
       });
       if (!r.ok) console.error('Resend send failed:', r.status, await r.text());
