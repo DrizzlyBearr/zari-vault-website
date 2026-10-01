@@ -137,7 +137,7 @@ import '../styles/global.css';
       "name": "How does the free plan differ from Premium?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The free plan includes up to 4 documents with full biometric lock and AES-256 encryption. Premium at R249.99 per year (less than R21 per month) unlocks storage for up to 10 documents, document expiry alerts, custom nicknames, pinch-to-zoom, configurable auto-lock, and biometric-verified clipboard copy."
+        "text": "The free plan includes up to 4 documents with full biometric lock, AES-256 encryption, expiry alerts, encrypted PDF export, pinch-to-zoom and auto-lock. Premium at R249.99 per year (less than R21 per month) unlocks unlimited documents plus renewal reminders, travel tools, medical information, share packs, quick modes, custom nicknames and biometric clipboard copy."
       }
     },
     {
@@ -249,7 +249,7 @@ import '../styles/global.css';
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="/blog">Blog</a></li>
-      <li><a href="#waitlist" class="nav-cta">Download Free</a></li>
+      <li><a href="#dl" class="nav-cta">Download Free</a></li>
     </ul>
     <div class="nav-right">
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
@@ -264,7 +264,7 @@ import '../styles/global.css';
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
     <a href="/blog">Blog</a>
-    <a href="#waitlist" style="color:var(--blue-700);font-weight:700;">Download Free →</a>
+    <a href="#dl" style="color:var(--blue-700);font-weight:700;">Download Free →</a>
   </div>
 </nav>
 
@@ -273,14 +273,14 @@ import '../styles/global.css';
   <div class="hero-wrap">
     <div class="hero-left">
       <div class="hero-badge rev"><span class="h1-dot"></span>POPIA Compliant · Zero Cloud Storage</div>
-      <h1 class="hero-h1 rev d1">Never get caught<br>without your <em>ID</em><br>again.</h1>
-      <p class="hero-sub rev d2">Zari Vault is a secure ID wallet for your phone. Scan your Smart ID, driver's licence, passport and more. Locked by your face or fingerprint. Show any document in 3 seconds flat. Zero data ever leaves your phone.</p>
+      <h1 class="hero-h1 rev d1">Know <em>before</em><br>it expires.</h1>
+      <p class="hero-sub rev d2">Zari Vault keeps your important documents locked on your own phone, and warns you well before they expire. Your documents are never uploaded.</p>
       <div class="hero-actions rev d3">
-        <a href="#waitlist" class="btn-p">📱 Download Free</a>
+        <a href="#dl" class="btn-p">📱 Download Free</a>
         <a href="#services" class="btn-s">See All Features →</a>
       </div>
       <div class="hero-trust rev d4">
-        <div class="ht-item"><div class="ht-chk">✓</div> No cloud. Ever.</div>
+        <div class="ht-item"><div class="ht-chk">✓</div> Never uploaded</div>
         <div class="ht-item"><div class="ht-chk">✓</div> AES-256 Encrypted</div>
         <div class="ht-item"><div class="ht-chk">✓</div> 149 Countries</div>
       </div>
@@ -428,9 +428,8 @@ import '../styles/global.css';
 <div id="stats">
   <div class="stats-in">
     <div class="rev"><div class="sn" data-count="149" data-suffix="">0</div><div class="sl">Countries Supported</div></div>
-    <div class="rev d1"><div class="sn sa" data-count="3" data-suffix="s">0s</div><div class="sl">Document Access Time</div></div>
+    <div class="rev d1"><div class="sn" data-count="25" data-suffix="">0</div><div class="sl">Languages</div></div>
     <div class="rev d2"><div class="sn" data-static="AES‑256">AES‑256</div><div class="sl">Encryption Standard</div></div>
-    <div class="rev d3"><div class="sn sa" data-count="0" data-suffix="">0</div><div class="sl">Data Sent to Any Server</div></div>
   </div>
 </div>
 
@@ -440,12 +439,12 @@ import '../styles/global.css';
     <div style="text-align:center;max-width:600px;margin:0 auto;">
       <span class="eyebrow rev">Why Zari Vault</span>
       <h2 class="sh rev d1">Built for real life,<br>designed around <em>privacy</em></h2>
-      <p class="sb rev d2" style="margin:0 auto;">From estate boom gates to hospital check-ins, your documents ready before anyone can ask.</p>
+      <p class="sb rev d2" style="margin:0 auto;">Renewals, travel and medical information in one place, so you are prepared and send only what a situation needs.</p>
     </div>
     <div class="vp-grid">
       <div class="vp-card rev d1"><div class="vp-icon">🔒</div><h3>Biometric Lock</h3><p>Face ID, Touch ID, or a 6-digit PIN. Nobody gets in without your face or fingerprint, including us.</p></div>
-      <div class="vp-card rev d2"><div class="vp-icon">⚡</div><h3>3-Second Access</h3><p>Unlock and show any document in under 3 seconds. Estate security, traffic officers, bank FICA, handled instantly.</p></div>
-      <div class="vp-card rev d3"><div class="vp-icon">🛡️</div><h3>Zero Cloud Storage</h3><p>No upload. No sync. No server. Your documents are encrypted on your device and never leave it.</p></div>
+      <div class="vp-card rev d2"><div class="vp-icon">📤</div><h3>Share Only What's Needed</h3><p>Build share packs for FICA, travel or an insurance claim. Each is an encrypted PDF stamped with its purpose and date.</p></div>
+      <div class="vp-card rev d3"><div class="vp-icon">🛡️</div><h3>Never Uploaded</h3><p>Your documents are encrypted on your device. They are never uploaded, and there is no server that receives them.</p></div>
       <div class="vp-card rev d2"><div class="vp-icon">🌍</div><h3>149 Countries</h3><p>Smart ID in South Africa becomes Aadhaar in India, National ID in Kenya, BRP in the UK. Zari adapts.</p></div>
       <div class="vp-card rev d3"><div class="vp-icon">⏱️</div><h3>Auto-Lock Timer</h3><p>Documents close automatically after 30 seconds to 2 minutes. Never left open by accident.</p></div>
       <div class="vp-card rev d4"><div class="vp-icon">🔔</div><h3>Expiry Alerts</h3><p>Get notified before your ID, licence or passport expires. Never show up with an out-of-date document again.</p></div>
@@ -734,7 +733,7 @@ import '../styles/global.css';
         <div class="pv-fact">
           <div class="pv-fact-label">Cloud risk</div>
           <h3>Every server upload is a potential breach</h3>
-          <p>When your documents live on a server, they're exposed to insider threats, hackers, and government orders, regardless of what a privacy policy says. No server means no breach surface.</p>
+          <p>When your documents live on a server, they're exposed to insider threats, hackers, and legal orders, regardless of what a privacy policy says. Zari Vault never uploads your documents, so there is no server copy to breach.</p>
         </div>
         <div class="pv-fact">
           <div class="pv-fact-label">Your POPIA rights</div>
@@ -755,24 +754,24 @@ import '../styles/global.css';
       <div class="ab-vis rev-l">
         <div class="ab-vis-icon">🔐</div>
         <h3>Privacy isn't a feature. It's the foundation.</h3>
-        <p>Most document apps upload your most sensitive information to servers owned by companies you've never heard of. We built Zari Vault to be architecturally different. Your documents never leave your device because our infrastructure literally cannot receive them.</p>
+        <p>Most document apps upload your most sensitive information to servers owned by companies you've never heard of. We built Zari Vault to be architecturally different. Your documents are never uploaded, and there is no server that receives them.</p>
         <div class="ab-vis-stats">
-          <div class="ab-stat"><div class="ab-stat-n">0</div><div class="ab-stat-l">Servers storing your data</div></div>
           <div class="ab-stat"><div class="ab-stat-n">149</div><div class="ab-stat-l">Countries supported</div></div>
+          <div class="ab-stat"><div class="ab-stat-n">25</div><div class="ab-stat-l">Languages</div></div>
           <div class="ab-stat"><div class="ab-stat-n">AES‑256</div><div class="ab-stat-l">Encryption standard</div></div>
-          <div class="ab-stat"><div class="ab-stat-n">3s</div><div class="ab-stat-l">Average access time</div></div>
+          <div class="ab-stat"><div class="ab-stat-n">4</div><div class="ab-stat-l">Free documents</div></div>
         </div>
       </div>
       <div class="rev-r">
         <div class="ab-body">
-          <p>Zari Vault was born from a simple frustration: fumbling through a wallet at an estate boom gate, failing to find an expired licence at a roadblock, scrambling for a passport number during online check-in.</p>
+          <p>Zari Vault was born from a simple frustration: realising a licence had expired only when it was too late, scrambling for a passport number during online check-in, and never having the right document to hand when it mattered.</p>
           <p>We designed Zari Vault to feel like the app that actually lives on your home screen. Fast, clean, and completely private. No account to create, no email to verify, no data to hand over.</p>
           <p>POPIA compliant by architecture, not by checkbox. South Africa's data protection law demands better from every app that handles your personal information. Zari Vault was built to exceed that standard.</p>
         </div>
         <div class="ab-vals">
-          <div class="ab-val rev d1"><div class="ab-val-i">🏠</div><div><h4>Privacy by architecture</h4><p>We can't access your data because our system is built to never receive it. That's not a promise. It's a technical fact.</p></div></div>
-          <div class="ab-val rev d2"><div class="ab-val-i">⚡</div><div><h4>Speed in the real world</h4><p>Every UI decision is made with one question: can you show your document before the security guard loses patience?</p></div></div>
-          <div class="ab-val rev d3"><div class="ab-val-i">🇿🇦</div><div><h4>Built for Africa, used everywhere</h4><p>Boom gates, roadblocks, FICA compliance, designed around real South African daily friction, with global reach.</p></div></div>
+          <div class="ab-val rev d1"><div class="ab-val-i">🏠</div><div><h4>Privacy by architecture</h4><p>Your documents are never uploaded, so we have no copy to access. The design, not just a policy, is what keeps them yours.</p></div></div>
+          <div class="ab-val rev d2"><div class="ab-val-i">🔔</div><div><h4>Ready before it expires</h4><p>Every UI decision is made with one question: can you keep your documents valid and to hand before the deadline catches you out?</p></div></div>
+          <div class="ab-val rev d3"><div class="ab-val-i">🇿🇦</div><div><h4>Built for Africa, used everywhere</h4><p>Renewals, travel and medical information, designed around real South African daily friction, with global reach.</p></div></div>
         </div>
       </div>
     </div>
@@ -786,7 +785,7 @@ import '../styles/global.css';
         <p style="font-size:.97rem;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:1rem;">I built Zari Vault after I was mugged and lost my ID and driver's licence. What frustrated me most wasn't the loss, it was everything that came after: the slow process, the cost, the realisation that there was no reliable way to show my own documents without risking the physical originals all over again. I kept asking why this didn't already exist. Eventually I decided the solution to my problem was going to have to come from me.</p>
         <p style="font-size:.97rem;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:1rem;">So I built it myself, from scratch.</p>
         <p style="font-size:.97rem;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:1rem;">The privacy part isn't a marketing angle for me, it's the whole point. Right now almost every company treats your personal information as a product to be sold, and you don't really get a say. If you don't hand your data over, you get left behind. I didn't want to build another company like that. I don't want to own anyone's information. I don't want ads on this platform. I don't want a quick payday. I wanted to solve a real problem I actually had, and it turns out I'm far from the only person who has it.</p>
-        <p style="font-size:.97rem;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:1.75rem;">That's Zari Vault. Your documents, on your device, controlled by you. Nothing leaves your phone, because I built it so that it can't.</p>
+        <p style="font-size:.97rem;color:rgba(255,255,255,.82);line-height:1.85;margin-bottom:1.75rem;">That's Zari Vault. Your documents, on your device, controlled by you. They are never uploaded, because there is no server that receives them.</p>
         <div style="display:flex;align-items:center;gap:.85rem;">
           <div style="width:44px;height:44px;background:rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:#fff;flex-shrink:0;">MM</div>
           <div>
@@ -812,7 +811,7 @@ import '../styles/global.css';
         <p style="font-size:.85rem;line-height:1.8;margin-bottom:.85rem;">Miense Mpasa is from Pretoria, Gauteng, and now builds out of Centurion. He did not set out to start a tech company. He set out to solve a problem that made him furious.</p>
         <p style="font-size:.85rem;line-height:1.8;margin-bottom:.85rem;">At 24, he was mugged and lost his ID and driver's licence. The loss itself was manageable. What followed was not: the slow process, the cost, and the realisation that there was no safe, private way to carry his own documents without putting the originals at risk again. One month later, he started building.</p>
         <p style="font-size:.85rem;line-height:1.8;margin-bottom:.85rem;">Sound engineering graduate from the Academy of Sound Engineering, turned international sales executive across real estate, marketing, FMCG, law, and recruitment. Self-taught developer: CSS, HTML, JavaScript, Python. He codes the product himself, which means every privacy decision in Zari Vault was made by the same person who felt the original problem.</p>
-        <p style="font-size:.85rem;line-height:1.8;margin-bottom:.85rem;">The privacy position is not a brand angle. It is the premise. Zari Vault collects no document data, runs no ads, and has no mechanism to monetise user information, because it was designed from the start to make that impossible.</p>
+        <p style="font-size:.85rem;line-height:1.8;margin-bottom:.85rem;">The privacy position is not a brand angle. It is the premise. Zari Vault runs no ads and has no mechanism to monetise user information, because it was designed from the start without a server that receives your documents.</p>
         <p style="font-size:.85rem;line-height:1.8;margin-bottom:.85rem;">Ask him what the hardest part of building this has been and he does not say fundraising or distribution. He says the self-doubt, learning on the go, and being a solo founder without a network to lean on.</p>
         <p style="font-size:.85rem;line-height:1.8;font-style:italic;color:var(--text-2);margin-top:auto;padding-top:.75rem;">Mutable. Relentless. Unfinished.</p>
       </div>
@@ -852,13 +851,20 @@ import '../styles/global.css';
     <div class="svc-grid">
       <div class="svc-card rev d1"><div class="svc-icon">🪪</div><h3>Smart Document Scanning</h3><p>Scan front and back of any supported document. Zari guides you and instantly encrypts the result on your device.</p><span class="svc-tag">8 document types</span></div>
       <div class="svc-card rev d2"><div class="svc-icon">🫆</div><h3>Biometric Authentication</h3><p>Face ID, Touch ID, or a 6-digit PIN. Every document access requires fresh authentication, no exceptions.</p><span class="svc-tag">Face ID · Touch ID · PIN</span></div>
-      <div class="svc-card rev d3"><div class="svc-icon">🔐</div><h3>AES-256 Encryption</h3><p>The same standard used by governments worldwide. Every document encrypted at rest in your phone's Secure Enclave.</p><span class="svc-tag">Military-grade</span></div>
+      <div class="svc-card rev d3"><div class="svc-icon">🔐</div><h3>AES-256 Encryption</h3><p>Every document is encrypted at rest on your device, with the key held in the phone's secure Keychain or Keystore.</p><span class="svc-tag">AES-256</span></div>
       <div class="svc-card rev d1"><div class="svc-icon">⏱️</div><h3>Auto-Lock Timer</h3><p>Configure documents to close after 30 seconds to 2 minutes. Never risk leaving sensitive info on screen.</p><span class="svc-tag">Premium feature</span></div>
       <div class="svc-card rev d2"><div class="svc-icon">🔔</div><h3>Document Expiry Alerts</h3><p>Timely reminders before your ID, licence, or passport expires. Never get caught with an out-of-date document.</p><span class="svc-tag">Premium feature</span></div>
       <div class="svc-card rev d3"><div class="svc-icon">🌍</div><h3>149-Country Support</h3><p>Your Smart ID in SA is an Aadhaar in India, National ID in Kenya, BRP in the UK. Adapts to your country automatically.</p><span class="svc-tag">Global coverage</span></div>
       <div class="svc-card rev d2"><div class="svc-icon">📋</div><h3>Secure Clipboard Copy</h3><p>Copy document details to clipboard with biometric verification required every time. Your data, on your terms.</p><span class="svc-tag">Premium feature</span></div>
       <div class="svc-card rev d3"><div class="svc-icon">🔍</div><h3>Pinch-to-Zoom</h3><p>Zoom in on any stored document for detailed inspection, perfect for fine print on medical aid cards.</p><span class="svc-tag">Premium feature</span></div>
       <div class="svc-card rev d4"><div class="svc-icon">🏷️</div><h3>Custom Nicknames</h3><p>"Work Passport", "Mum's Medical Aid", "Old Car Disc": organise your vault the way you actually think.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d1"><div class="svc-icon">🔔</div><h3>Renewal Reminders</h3><p>Tracks expiry for your licence, vehicle disc, passport, insurance and proof of residence. Shows days remaining, what to bring, a rough cost and a link to the official portal. Works with no signal.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d2"><div class="svc-icon">✈️</div><h3>Travel Tools</h3><p>A visa wallet, a travel log and a Schengen 90/180-day counter, with the six-month passport rule flagged before you fly.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d3"><div class="svc-icon">🩺</div><h3>Medical Information</h3><p>Blood type, allergies, conditions and medication in one place, with an opt-in emergency card.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d1"><div class="svc-icon">📤</div><h3>Share Packs</h3><p>Send only what a situation needs: FICA, travel, insurance claim, vehicle resale, school enrolment. Each is an encrypted PDF stamped with its purpose and date.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d2"><div class="svc-icon">⚡</div><h3>Quick Modes</h3><p>Exam Day, Emergency and Traffic Stop modes put the right documents together behind one biometric check, so you are prepared.</p><span class="svc-tag">Premium feature</span></div>
+      <div class="svc-card rev d3"><div class="svc-icon">👀</div><h3>Preview Before You Pay</h3><p>Free users can open the Premium tools and see them working with their own documents before deciding to upgrade.</p><span class="svc-tag">Free</span></div>
+      <div class="svc-card rev d4"><div class="svc-icon">🌐</div><h3>25 Languages & Accessibility</h3><p>Eye-comfort, read-assist and colour-safe modes, plus full text-size support, in 25 languages.</p><span class="svc-tag">Free</span></div>
     </div>
   </div>
 </section>
@@ -881,13 +887,13 @@ import '../styles/global.css';
           <li>Biometric lock (Face ID / Touch ID)</li>
           <li>AES-256 on-device encryption</li>
           <li>149 countries & document types</li>
-          <li class="locked">Document expiry alerts</li>
-          <li class="locked">Custom nicknames</li>
-          <li class="locked">Pinch-to-zoom</li>
-          <li class="locked">Configurable auto-lock</li>
-          <li class="locked">Clipboard copy (biometric)</li>
+          <li>Document expiry alerts</li>
+          <li>Encrypted PDF export</li>
+          <li>Pinch-to-zoom</li>
+          <li>Configurable auto-lock</li>
+          <li>25 languages & accessibility modes</li>
         </ul>
-        <a href="#waitlist" class="btn-s plan-btn">Get started free</a>
+        <a href="#dl" class="btn-s plan-btn">Get started free</a>
       </div>
       <div class="plan-card featured">
         <div class="plan-badge">Most popular</div>
@@ -895,17 +901,17 @@ import '../styles/global.css';
         <div class="plan-price" id="price-display">R249.99 <span>/ year</span></div>
         
         <ul class="plan-features">
-          <li>Store up to 10 documents</li>
-          <li>Biometric lock (Face ID / Touch ID)</li>
-          <li>AES-256 on-device encryption</li>
-          <li>149 countries & document types</li>
-          <li>Document expiry alerts</li>
+          <li>Everything in Free</li>
+          <li>Unlimited documents</li>
+          <li>Renewal reminders with portal links</li>
+          <li>Travel tools (visa wallet, 90/180 counter)</li>
+          <li>Medical info & emergency card</li>
+          <li>Share packs (purpose-stamped PDFs)</li>
+          <li>Quick modes (Exam, Emergency, Traffic Stop)</li>
           <li>Custom document nicknames</li>
-          <li>Pinch-to-zoom on documents</li>
-          <li>Configurable auto-lock timer</li>
           <li>Clipboard copy (biometric)</li>
         </ul>
-        <a href="#waitlist" class="btn-p plan-btn">Upgrade to Premium</a>
+        <a href="#dl" class="btn-p plan-btn">Upgrade to Premium</a>
         <div class="plan-annual-note" id="annual-note">Billed annually · cancel anytime</div>
       </div>
     </div>
@@ -958,14 +964,14 @@ import '../styles/global.css';
           <span class="faq-q-text">Is a digital copy legally accepted in South Africa?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Zari Vault stores personal copies for reference, not certified legal copies. For most everyday uses (estate access, pharmacies, showing a roadblock officer your details for reference, providing your member number), a phone copy works perfectly. For formal legal or FICA purposes, you'll still need certified originals. Zari Vault labels all stored documents as "Personal Copy" to make this clear.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Zari Vault stores personal copies for your own reference, not certified legal copies. They are handy for everyday organising and for quoting your own details, but gates, officers and banks need the original or their own verification. For formal, legal or FICA purposes you'll still need the original or a certified copy. Zari Vault labels all stored documents as "Personal Copy" to make this clear. Always carry your original documents.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           <span class="faq-q-text">Can Zari Vault see my documents?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">No, and this is not a promise, it's a technical impossibility. Documents are encrypted on your device before being stored, using keys that only your device holds. Nothing is ever transmitted to our servers because we have no servers that receive document data. We have designed the system so that even if we wanted to see your documents, we couldn't.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">No. Documents are encrypted on your device before being stored, using keys that only your device holds, and they are never uploaded. There is no server that receives your documents, so there is nothing for us to see.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -986,7 +992,7 @@ import '../styles/global.css';
           <span class="faq-q-text">How does the free plan differ from Premium?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">The free plan stores up to 4 documents with full biometric lock and AES-256 encryption. The core security is identical. Premium (R249.99/year, less than R21/month) unlocks storage for up to 10 documents, expiry alerts, custom nicknames, pinch-to-zoom, configurable auto-lock, and biometric-verified clipboard copy. See the <a href="#pricing">pricing section</a> for a full comparison.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">The free plan stores up to 4 documents with full biometric lock, AES-256 encryption, expiry alerts, encrypted PDF export, pinch-to-zoom and auto-lock. The core security is identical. Premium (R249.99/year, less than R21/month) unlocks unlimited documents plus renewal reminders, travel tools, medical information, share packs, quick modes, custom nicknames and biometric clipboard copy. See the <a href="#pricing">pricing section</a> for a full comparison.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -1053,13 +1059,13 @@ import '../styles/global.css';
 
 <!-- DOWNLOAD CTA -->
 <div id="dl">
-  <h2 class="rev">Never be caught<br><em>without your ID</em> again.</h2>
-  <p class="rev d1">Free to download. First 4 documents free forever. Scan your first document in 30 seconds.</p>
+  <h2 class="rev">Know before<br><em>it expires.</em></h2>
+  <p class="rev d1">Free to download. Your first 4 documents are free, forever.</p>
   <div class="rev d2" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.25rem;position:relative;z-index:1;">
     <a href="https://apps.apple.com/za/app/zari-vault-secure-id-wallet/id6761957720" target="_blank" rel="noopener" class="s-badge"><span class="s-badge-i">🍎</span><div class="s-badge-t"><small>Download on the</small><strong>App Store</strong></div></a>
-    <span class="s-badge" style="opacity:.5;cursor:default;"><span class="s-badge-i">🤖</span><div class="s-badge-t"><small>Coming soon to</small><strong>Google Play</strong></div></span>
+    <a href="https://play.google.com/store/apps/details?id=com.miense.zarivault" target="_blank" rel="noopener" class="s-badge"><span class="s-badge-i">▶</span><div class="s-badge-t"><small>Get it on</small><strong>Google Play</strong></div></a>
   </div>
-  <p class="dl-note rev d3">Free forever · No account required · No data collected · POPIA compliant</p>
+  <p class="dl-note rev d3">Free forever · No account required · No cloud · POPIA compliant</p>
 </div>
 
 <!-- FOOTER -->
@@ -1069,16 +1075,15 @@ import '../styles/global.css';
       <div>
         <div class="ft-brand"><div class="ft-brand-i">🔐</div><span class="ft-brand-n">Zari Vault</span></div>
         <p class="ft-tag">Your identity documents secured and instantly accessible. Zero cloud. Zero compromise.</p>
-        <!-- TODO: replace href="#" with real social profile URLs (X, LinkedIn, Instagram, Facebook) once accounts are live -->
-        <div class="ft-soc"><a href="#" class="ft-s">𝕏</a><a href="#" class="ft-s">in</a><a href="#" class="ft-s">📸</a><a href="#" class="ft-s">f</a></div>
+        <!-- Social icons removed until real profile URLs are available (see brief, section 2 #14) -->
       </div>
-      <div class="ft-col"><h4>Product</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#waitlist">Download</a></li></ul></div>
+      <div class="ft-col"><h4>Product</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#dl">Download</a></li></ul></div>
       <div class="ft-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="/blog">Blog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></div>
-      <div class="ft-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">POPIA Compliance</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
+      <div class="ft-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy Policy</a></li><li><a href="https://large-dracopelta-cb0.notion.site/Zari-Vault-Terms-of-Service-714032f7847843329009af9d418736fa" target="_blank" rel="noopener">Terms of Use</a></li></ul></div>
     </div>
     <div class="ft-bot">
       <div class="ft-copy">© 2026 ZINKULU (PTY) LTD, trading as Zari Vault. All rights reserved. Made with ❤️ in Cape Town.</div>
-      <div class="ft-leg"><a href="/privacy">Privacy</a><a href="/privacy">Terms</a><a href="/privacy#popia">POPIA</a></div>
+      <div class="ft-leg"><a href="/privacy">Privacy</a><a href="https://large-dracopelta-cb0.notion.site/Zari-Vault-Terms-of-Service-714032f7847843329009af9d418736fa" target="_blank" rel="noopener">Terms</a></div>
     </div>
   </div>
 </footer>
