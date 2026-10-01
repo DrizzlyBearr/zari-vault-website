@@ -86,6 +86,8 @@ h1,h2,h3,h4{font-family:var(--ff);}
 .rev,.rev-l,.rev-r{opacity:0;transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);}
 .rev{transform:translateY(28px);}.rev-l{transform:translateX(-28px);}.rev-r{transform:translateX(28px);}
 .rev.vis,.rev-l.vis,.rev-r.vis{opacity:1;transform:none;}
+/* Accessibility: users who prefer reduced motion see content immediately, no fade/slide. */
+@media (prefers-reduced-motion:reduce){.rev,.rev-l,.rev-r{opacity:1!important;transform:none!important;transition:none!important;}}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
 
 /* ===== HERO ===== */
